@@ -1,4 +1,4 @@
-package User.domain;
+package com.example.walletwise.Transaccion.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,18 +10,18 @@ import java.time.ZonedDateTime;
 
 @Entity
 @Data
-public class User {
+public class Transaccion {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String name;
+    private double monto;
 
-    private String email;
+    private String tipo_Transaccion;
 
-    private String password;
+    private ZonedDateTime fechaTransaccion;
 
-    private ZonedDateTime creationDate;
+    private String descripcion;
 
-    private Role role;
+
 }
