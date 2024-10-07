@@ -1,4 +1,4 @@
-package com.example.walletwise.User.application;
+package com.example.walletwise.Usuario.application;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
