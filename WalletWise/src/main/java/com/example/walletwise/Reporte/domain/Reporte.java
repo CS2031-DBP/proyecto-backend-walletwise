@@ -2,12 +2,13 @@ package com.example.walletwise.Reporte.domain;
 
 import com.example.walletwise.Usuario.domain.Usuario;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDate;
 
+@Data
 @Entity
 public class Reporte {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,62 +32,4 @@ public class Reporte {
     @Column(nullable = false)
     private String formato; // "PDF", "CSV", etc.
 
-    // Getters y Setters
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public LocalDate getFechaGeneracion() {
-        return fechaGeneracion;
-    }
-
-    public void setFechaGeneracion(LocalDate fechaGeneracion) {
-        this.fechaGeneracion = fechaGeneracion;
-    }
-
-    public String getTipoReporte() {
-        return tipoReporte;
-    }
-
-    public void setTipoReporte(String tipoReporte) {
-        this.tipoReporte = tipoReporte;
-    }
-
-    public String getContenido() {
-        return contenido;
-    }
-
-    public void setContenido(String contenido) {
-        this.contenido = contenido;
-    }
-
-    public String getRangoFechas() {
-        return rangoFechas;
-    }
-
-    public void setRangoFechas(String rangoFechas) {
-        this.rangoFechas = rangoFechas;
-    }
-
-    public String getFormato() {
-        return formato;
-    }
-
-    public void setFormato(String formato) {
-        this.formato = formato;
-    }
 }
