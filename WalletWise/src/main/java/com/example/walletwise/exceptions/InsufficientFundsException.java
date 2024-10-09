@@ -1,5 +1,6 @@
 package com.example.walletwise.exceptions;
 
+
 public class InsufficientFundsException extends RuntimeException {
 
     public InsufficientFundsException(String message) {

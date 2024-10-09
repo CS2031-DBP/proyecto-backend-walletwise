@@ -29,9 +29,9 @@ public class Usuario {
     @Column(nullable = false)
     private LocalDate fechaRegistro;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role; // Rol del usuario
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Cuenta> cuentas;

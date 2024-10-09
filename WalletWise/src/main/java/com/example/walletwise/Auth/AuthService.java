@@ -2,6 +2,7 @@ package com.example.walletwise.Auth;
 
 import com.example.walletwise.Auth.dtos.JwtAuthResponse;
 import com.example.walletwise.Auth.dtos.LoginReq;
+import com.example.walletwise.Usuario.domain.Role;
 import com.example.walletwise.Usuario.domain.Usuario;
 import com.example.walletwise.Usuario.dtos.RegisterReq;
 import com.example.walletwise.Usuario.infrastructure.UsuarioRepository;
@@ -65,6 +66,9 @@ public class AuthService {
         usuario.setEmail(req.getEmail());
         usuario.setPassword(passwordEncoder.encode(req.getPassword()));
         usuario.setFechaRegistro(LocalDateTime.now().toLocalDate());
+
+        // Asigna el rol de "USER" por defecto
+        usuario.setRole(Role.USER);
 
         usuarioRepository.save(usuario);
 

@@ -9,6 +9,8 @@ import com.example.walletwise.exceptions.UserAlreadyExistException;
 import jakarta.transaction.Transactional;
 import org.apache.coyote.BadRequestException;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,8 @@ public class UsuarioService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private static final Logger logger = LoggerFactory.getLogger(UsuarioService.class);
+
     private ModelMapper modelMapper = new ModelMapper();
 
     public UsuarioResponseDTO crearUsuario(UsuarioRequestDTO usuarioRequestDTO) {
@@ -40,7 +44,9 @@ public class UsuarioService {
         usuario.setEmail(usuarioRequestDTO.getEmail());
         usuario.setPassword(passwordEncoder.encode(usuarioRequestDTO.getPassword()));
         usuario.setFechaRegistro(java.time.LocalDate.now());
+
         usuario.setRole(Role.USER);
+        logger.info("Creando usuario con rol: {}", usuario.getRole());
 
         usuarioRepository.save(usuario);
         return modelMapper.map(usuario, UsuarioResponseDTO.class);
@@ -57,6 +63,7 @@ public class UsuarioService {
         usuario.setPassword(passwordEncoder.encode(usuarioRequestDTO.getPassword()));
         usuario.setFechaRegistro(java.time.LocalDate.now());
         usuario.setRole(Role.ADMIN);
+        logger.info("Creando admin con rol: {}", usuario.getRole());
 
         usuarioRepository.save(usuario);
         return modelMapper.map(usuario, UsuarioResponseDTO.class);

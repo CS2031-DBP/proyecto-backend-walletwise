@@ -3,11 +3,16 @@ package com.example.walletwise.Auth;
 import com.example.walletwise.Usuario.domain.Usuario;
 import com.example.walletwise.Usuario.infrastructure.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.Collections;
 
 @Service
 public class UsuarioDetailsServiceImpl implements UserDetailsService {
@@ -18,12 +23,16 @@ public class UsuarioDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con email: " + email));
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con el email: " + email));
 
-        return User.builder()
-                .username(usuario.getEmail())
-                .password(usuario.getPassword())
-                .roles("USER") // Puedes personalizar los roles según tu lógica
-                .build();
+        return new org.springframework.security.core.userdetails.User(
+                usuario.getEmail(),
+                usuario.getPassword(),
+                getAuthorities(usuario)  // Esto obtiene el rol del usuario de la base de datos
+        );
+    }
+
+    private Collection<? extends GrantedAuthority> getAuthorities(Usuario usuario) {
+        return Collections.singleton(new SimpleGrantedAuthority(usuario.getRole().name()));
     }
 }
