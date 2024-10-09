@@ -5,6 +5,7 @@ import com.example.walletwise.Categoria.domain.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +20,11 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @PostMapping
+    @PreAuthorize("hasRole('USER')") // Define el rol requerido
     public ResponseEntity<CategoriaDTO> crearCategoria(@RequestBody CategoriaDTO categoriaDTO) {
-        return new ResponseEntity<>(categoriaService.crearCategoria(categoriaDTO), HttpStatus.CREATED);
+        CategoriaDTO creado = categoriaService.crearCategoria(categoriaDTO);
+        return new ResponseEntity<>(creado, HttpStatus.CREATED);
     }
+
 }
 

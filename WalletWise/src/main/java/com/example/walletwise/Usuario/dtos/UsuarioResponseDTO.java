@@ -7,10 +7,9 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class UsuarioDTO {
+public class UsuarioResponseDTO {
     private Long id;
     private String nombre;
     private String email;
     private LocalDate fechaRegistro;
-    private String password;
 }
