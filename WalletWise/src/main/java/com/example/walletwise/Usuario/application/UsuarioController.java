@@ -13,13 +13,15 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
-
+    //no funciona
+    /*
     @PostMapping
     public ResponseEntity<UsuarioDTO> crearUsuario(@RequestBody UsuarioDTO usuarioDTO) {
         return new ResponseEntity<>(usuarioService.crearUsuario(usuarioDTO), HttpStatus.CREATED);
     }
-//no funciona
- /*   @GetMapping("/{id}")
+    //no funciona
+ @GetMapping("/{id}")
+
     public ResponseEntity<UsuarioDTO> obtenerUsuario(@PathVariable Long id) {
         return new ResponseEntity<>(usuarioService.obtenerUsuarioPorId(id), HttpStatus.OK);
     }*/

@@ -14,7 +14,8 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public UsuarioDTO crearUsuario(UsuarioDTO usuarioDTO) {
+    //error (corregir)
+   /* public UsuarioDTO crearUsuario(UsuarioDTO usuarioDTO) {
         if (usuarioRepository.findByEmail(usuarioDTO.getEmail()).isPresent()) {
             throw new BadRequestException("El email ya está en uso");
         }
@@ -27,7 +28,7 @@ public class UsuarioService {
 
         usuarioRepository.save(usuario);
         return mapToDTO(usuario);
-    }
+    }*/
 
     private UsuarioDTO mapToDTO(Usuario usuario) {
         UsuarioDTO usuarioDTO = new UsuarioDTO();
