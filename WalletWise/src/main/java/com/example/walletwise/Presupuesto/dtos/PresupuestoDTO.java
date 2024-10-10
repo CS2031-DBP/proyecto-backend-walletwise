@@ -14,9 +14,10 @@ public class PresupuestoDTO {
     private Long id;
     private BigDecimal montoTotal;
     private BigDecimal gastoActual;
-    private Categoria categoria;
-    private String alerta;       // Condición para emitir alertas
-    private PeriodoPresupuesto periodo;      // Puede ser "Mensual", "Anual", etc.
-    private Long usuarioId;      // Referencia al usuario propietario del presupuesto
+    private Long categoriaId;       // Referencia a la categoría del presupuesto
+    private String alerta;          // Condición para emitir alertas
+    private PeriodoPresupuesto periodo; // Puede ser "MENSUAL", "ANUAL", etc.
+    private Long usuarioId;         // Referencia al usuario propietario del presupuesto
 }
+
 

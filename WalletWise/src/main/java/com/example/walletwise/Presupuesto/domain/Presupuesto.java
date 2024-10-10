@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 @Data
 @Entity
 public class Presupuesto {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,6 +34,5 @@ public class Presupuesto {
     @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
-
-
 }
+
