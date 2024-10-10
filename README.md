@@ -2,7 +2,7 @@
 
 ---
 
-# Proyecto: WalletWise
+# Proyecto: WalletWise 💳
 
 ## Curso: CS 2031 Desarrollo Basado en Plataforma
 
