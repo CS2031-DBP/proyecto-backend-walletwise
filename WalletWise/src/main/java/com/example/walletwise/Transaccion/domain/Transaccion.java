@@ -27,7 +27,8 @@ public class Transaccion {
     private LocalDate fecha;
 
     @Column(nullable = false)
-    private String tipo;
+    @Enumerated(EnumType.STRING)
+    private TipoTransaccion tipo; // Enum aplicado
 
     @ManyToOne
     @JoinColumn(name = "cuenta_id", nullable = false)
