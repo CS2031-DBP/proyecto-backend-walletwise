@@ -28,11 +28,7 @@ public class UsuarioDetailsServiceImpl implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 usuario.getEmail(),
                 usuario.getPassword(),
-                getAuthorities(usuario)  // Esto obtiene el rol del usuario de la base de datos
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + usuario.getRole().name()))
         );
-    }
-
-    private Collection<? extends GrantedAuthority> getAuthorities(Usuario usuario) {
-        return Collections.singleton(new SimpleGrantedAuthority(usuario.getRole().name()));
     }
 }
