@@ -21,7 +21,8 @@ public class Reporte {
     private LocalDate fechaGeneracion;
 
     @Column(nullable = false)
-    private String tipoReporte;
+    @Enumerated(EnumType.STRING)
+    private TipoReporte tipoReporte; // Enum aplicado
 
     @Column(nullable = false)
     private String contenido;
