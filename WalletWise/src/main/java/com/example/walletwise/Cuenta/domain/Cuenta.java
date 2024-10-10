@@ -22,7 +22,8 @@ public class Cuenta {
     private BigDecimal saldo;
 
     @Column(nullable = false)
-    private String tipoCuenta;
+    @Enumerated(EnumType.STRING)
+    private TipoCuenta tipoCuenta; // Enum aplicado
 
     @Column(nullable = false)
     private String moneda;
