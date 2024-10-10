@@ -7,10 +7,10 @@
 ## Curso: CS 2031 Desarrollo Basado en Plataforma
 
 ### Integrantes:
-- [Nombre del Integrante 1]
-- [Nombre del Integrante 2]
-- [Nombre del Integrante 3]
 - Adrian Urbina Mendoza
+- Alejandro Ruiz
+- Celeste Sevillano
+- Carla Quispe Alejandra
 
 ---
 
