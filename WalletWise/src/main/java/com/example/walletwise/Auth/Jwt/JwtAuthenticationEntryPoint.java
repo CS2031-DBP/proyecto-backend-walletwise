@@ -1,4 +1,4 @@
-package com.example.walletwise.Auth;
+package com.example.walletwise.Auth.Jwt;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,6 +1,7 @@
-package com.example.walletwise.Auth;
+package com.example.walletwise.Auth.domain;
 
-import com.example.walletwise.Auth.dtos.JwtAuthResponse;
+import com.example.walletwise.Auth.Jwt.JwtService;
+import com.example.walletwise.Auth.Jwt.JwtAuthResponse;
 import com.example.walletwise.Auth.dtos.LoginReq;
 import com.example.walletwise.Usuario.domain.Role;
 import com.example.walletwise.Usuario.domain.Usuario;

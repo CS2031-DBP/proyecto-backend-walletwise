@@ -1,5 +1,8 @@
 package com.example.walletwise.Auth;
 
+import com.example.walletwise.Auth.Jwt.JwtAuthenticationEntryPoint;
+import com.example.walletwise.Auth.Jwt.JwtAuthenticationFilter;
+import com.example.walletwise.Auth.domain.UsuarioDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

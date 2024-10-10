@@ -1,4 +1,4 @@
-package com.example.walletwise.Auth;
+package com.example.walletwise.Auth.Jwt;
 
 import com.example.walletwise.Usuario.domain.Usuario;
 import io.jsonwebtoken.JwtException;

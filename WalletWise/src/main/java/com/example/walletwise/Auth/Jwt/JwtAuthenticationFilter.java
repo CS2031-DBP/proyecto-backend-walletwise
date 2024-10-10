@@ -1,5 +1,6 @@
-package com.example.walletwise.Auth;
+package com.example.walletwise.Auth.Jwt;
 
+import com.example.walletwise.Auth.domain.UsuarioDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

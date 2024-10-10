@@ -1,4 +1,4 @@
-package com.example.walletwise.Auth.dtos;
+package com.example.walletwise.Auth.Jwt;
 
 import lombok.Data;
 
