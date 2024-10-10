@@ -17,7 +17,7 @@ public class CuentaService {
 
     public CuentaDTO crearCuenta(CuentaDTO cuentaDTO) {
         Cuenta cuenta = new Cuenta();
-        cuenta.setBanco(cuentaDTO.getBanco());
+        cuenta.setNombre(cuentaDTO.getNombre());
         cuenta.setSaldo(cuentaDTO.getSaldo());
         cuenta.setTipoCuenta(cuentaDTO.getTipoCuenta());
         cuenta.setMoneda(cuentaDTO.getMoneda());
@@ -45,7 +45,7 @@ public class CuentaService {
         Cuenta cuenta = cuentaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cuenta no encontrada con id: " + id));
 
-        cuenta.setBanco(cuentaDTO.getBanco());
+        cuenta.setNombre(cuentaDTO.getNombre());
         cuenta.setSaldo(cuentaDTO.getSaldo());
         cuenta.setTipoCuenta(cuentaDTO.getTipoCuenta());
         cuenta.setMoneda(cuentaDTO.getMoneda());
@@ -62,7 +62,7 @@ public class CuentaService {
     private CuentaDTO mapToDTO(Cuenta cuenta) {
         CuentaDTO cuentaDTO = new CuentaDTO();
         cuentaDTO.setId(cuenta.getId());
-        cuentaDTO.setBanco(cuenta.getBanco());
+        cuentaDTO.setNombre(cuenta.getNombre());
         cuentaDTO.setSaldo(cuenta.getSaldo());
         cuentaDTO.setTipoCuenta(cuenta.getTipoCuenta());
         cuentaDTO.setMoneda(cuenta.getMoneda());

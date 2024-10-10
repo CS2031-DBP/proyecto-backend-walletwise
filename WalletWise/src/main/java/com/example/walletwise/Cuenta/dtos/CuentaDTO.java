@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Setter
 public class CuentaDTO {
     private Long id;
-    private String banco;
+    private String nombre;
     private BigDecimal saldo;
     private TipoCuenta tipoCuenta; // Enum aplicado  // Puede ser "Ahorro", "Corriente", etc.
     private Moneda moneda;      // Ej: "USD", "PEN", etc.

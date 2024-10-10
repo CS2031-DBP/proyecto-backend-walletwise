@@ -16,7 +16,7 @@ public class Cuenta {
     private Long id;
 
     @Column(nullable = false)
-    private String banco;
+    private String nombre;
 
     @Column(nullable = false)
     private BigDecimal saldo;

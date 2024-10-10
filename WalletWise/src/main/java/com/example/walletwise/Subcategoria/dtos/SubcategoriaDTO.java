@@ -11,7 +11,9 @@ public class SubcategoriaDTO {
 
     private String nombre;       // Nombre de la subcategoría
 
-    private Long categoriaId;    // Referencia a la categoría a la que pertenece
+    private Long categoriaId; // Referencia a la categoría a la que pertenece
+
+    private String descripcion;
 
 }
 
