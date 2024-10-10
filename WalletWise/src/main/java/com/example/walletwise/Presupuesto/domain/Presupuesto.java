@@ -25,7 +25,8 @@ public class Presupuesto {
     private String alerta;
 
     @Column(nullable = false)
-    private String periodo;
+    @Enumerated(EnumType.STRING)
+    private PeriodoPresupuesto periodo; // Enum aplicado
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
