@@ -1,5 +1,6 @@
 package com.example.walletwise.Usuario.dtos;
 
+import com.example.walletwise.Usuario.domain.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,4 +13,5 @@ public class UsuarioResponseDTO {
     private String nombre;
     private String email;
     private LocalDate fechaRegistro;
+    private Role role;
 }
