@@ -133,8 +133,8 @@ Representa una cuenta financiera del usuario, como cuentas bancarias, tarjetas d
 - **id:** Identificador único de la cuenta.
 - **nombre:** Nombre de la cuenta (e.g., "Cuenta Corriente", "Tarjeta de Crédito").
 - **saldo:** Saldo actual de la cuenta.
-- **tipo:** Tipo de cuenta (e.g., "Bancaria", "Tarjeta").
-- **fechaCreacion:** Fecha en que se creó la cuenta.
+- **tipoCuenta:** Tipo de cuenta (  AHORRO,CORRIENTE,INVERSION).
+- **moneda:** ( USD,PEN,EUR )
 
 **Relaciones:**
 - **ManyToOne** con **Usuario:** Cada cuenta pertenece a un usuario.
