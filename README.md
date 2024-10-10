@@ -2,7 +2,7 @@
 
 ---
 
-# Proyecto: [Título del Proyecto]
+# Proyecto: [WalletWise]
 
 ## Curso: CS 2031 Desarrollo Basado en Plataforma
 
