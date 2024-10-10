@@ -195,7 +195,7 @@ Detalla cada componente o elemento dentro de una transacción o presupuesto, pro
 **Atributos Clave:**
 - **id:** Identificador único del ítem.
 - **nombre:** Nombre del ítem (e.g., "Compra de comida", "Pago de alquiler").
-- **monto:** Monto asignado al ítem.
+- **precio:** Monto asignado al ítem.
 - **descripcion:** Descripción detallada del ítem.
 
 **Relaciones:**
