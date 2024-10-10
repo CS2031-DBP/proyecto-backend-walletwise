@@ -26,7 +26,8 @@ public class Cuenta {
     private TipoCuenta tipoCuenta; // Enum aplicado
 
     @Column(nullable = false)
-    private String moneda;
+    @Enumerated(EnumType.STRING)
+    private Moneda moneda; // Enum aplicado
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
