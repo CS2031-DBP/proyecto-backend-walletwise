@@ -10,7 +10,8 @@ import java.math.BigDecimal;
 public class ItemDTO {
     private Long id;
     private String nombre;       // Nombre del ítem, por ejemplo, "Supermercado"
-    private BigDecimal precio;   // Precio del ítem
+    private BigDecimal precio;// Precio del ítem
+    private String descripcion;
     private Long transaccionId;  // Referencia a la transacción donde está incluido el ítem
 }
 

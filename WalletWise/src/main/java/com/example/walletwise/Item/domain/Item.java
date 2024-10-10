@@ -19,6 +19,9 @@ public class Item {
     @Column(nullable = false)
     private BigDecimal precio;
 
+    @Column(nullable = false)
+    private String descripcion;
+
     @ManyToOne
     @JoinColumn(name = "transaccion_id", nullable = false)
     private Transaccion transaccion;
