@@ -1,5 +1,6 @@
 package com.example.walletwise.Presupuesto.domain;
 
+import com.example.walletwise.Categoria.domain.Categoria;
 import com.example.walletwise.Usuario.domain.Usuario;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -20,9 +21,6 @@ public class Presupuesto {
     @Column(nullable = false)
     private BigDecimal gastoActual;
 
-    @Column(nullable = false)
-    private String categoria;
-
     @Column
     private String alerta;
 
@@ -32,5 +30,10 @@ public class Presupuesto {
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private Categoria categoria;
+
 
 }

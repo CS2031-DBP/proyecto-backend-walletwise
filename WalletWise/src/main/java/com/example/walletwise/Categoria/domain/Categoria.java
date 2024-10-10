@@ -21,7 +21,8 @@ public class Categoria {
     private String descripcion;
 
     @Column(nullable = false)
-    private String tipo; // "Ingreso", "Gasto"
+    @Enumerated(EnumType.STRING)
+    private TipoCategoria tipo;
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
     private List<Subcategoria> subcategorias;
