@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface TransaccionRepository extends JpaRepository<Transaccion, Long> {
-    List<Transaccion> findByUsuarioId(@Param("usuarioId") Long usuarioId);
+    List<Transaccion> findByCuentaUsuarioId(Long usuarioId);
 }

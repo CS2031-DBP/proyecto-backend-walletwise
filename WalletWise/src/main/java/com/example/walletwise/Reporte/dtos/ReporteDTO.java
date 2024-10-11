@@ -14,7 +14,9 @@ public class ReporteDTO {
     private LocalDate fechaGeneracion;
     private TipoReporte tipoReporte;   // Tipo de reporte, como "Gastos", "Ingresos", "Presupuesto"
     private String contenido;     // Resumen o análisis financiero
-    private String rangoFechas;   // Periodo que cubre el reporte, por ejemplo, "01/01/2024 - 31/01/2024"
+    private String rangoFechas;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
     private String formato;       // Puede ser "PDF", "CSV", etc.
 
 }

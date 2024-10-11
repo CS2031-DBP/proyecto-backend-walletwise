@@ -58,7 +58,7 @@ public class TransaccionService {
     }
 
     public List<TransaccionDTO> obtenerTransaccionesPorUsuarioId(Long usuarioId) {
-        List<Transaccion> transacciones = transaccionRepository.findByUsuarioId(usuarioId);
+        List<Transaccion> transacciones = transaccionRepository.findByCuentaUsuarioId(usuarioId);
         return transacciones.stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 

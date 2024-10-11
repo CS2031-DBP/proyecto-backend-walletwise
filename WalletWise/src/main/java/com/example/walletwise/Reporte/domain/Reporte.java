@@ -28,7 +28,10 @@ public class Reporte {
     private String contenido;
 
     @Column(nullable = false)
-    private String rangoFechas;
+    private LocalDate fechaInicio;
+
+    @Column(nullable = false)
+    private LocalDate fechaFin;
 
     @Column(nullable = false)
     private String formato; // "PDF", "CSV", etc.
