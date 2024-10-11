@@ -8,8 +8,11 @@ import com.example.walletwise.Transaccion.dtos.TransaccionDTO;
 import com.example.walletwise.Transaccion.infrastructure.TransaccionRepository;
 import com.example.walletwise.Usuario.infrastructure.UsuarioRepository;
 import com.example.walletwise.exceptions.ResourceNotFoundException;
+import com.example.walletwise.events.TransactionEvent;  // Importar el evento
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;  // Importar el publisher de eventos
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +28,10 @@ public class TransaccionService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;  // Inyectar el publisher de eventos
+
+    @Transactional
     public TransaccionDTO crearTransaccion(TransaccionDTO transaccionDTO) {
         Transaccion transaccion = new Transaccion();
         transaccion.setMonto(transaccionDTO.getMonto());
@@ -42,10 +49,16 @@ public class TransaccionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada con id: " + transaccionDTO.getCategoriaId()));
         transaccion.setCategoria(categoria);
 
+        // Guardar la transacción
         transaccionRepository.save(transaccion);
+
+        // Publicar el evento después de guardar la transacción
+        eventPublisher.publishEvent(new TransactionEvent(this, transaccion));
+
         return mapToDTO(transaccion);
     }
 
+    // Resto del código se mantiene igual
     public List<TransaccionDTO> obtenerTodasLasTransacciones() {
         List<Transaccion> transacciones = transaccionRepository.findAll();
         return transacciones.stream().map(this::mapToDTO).collect(Collectors.toList());
@@ -105,4 +118,3 @@ public class TransaccionService {
         return transaccionDTO;
     }
 }
-
