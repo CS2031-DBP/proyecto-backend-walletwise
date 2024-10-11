@@ -190,7 +190,7 @@ Ayudar al usuario a planificar y controlar sus gastos dentro de diferentes categ
 ### **7. Ítem**
 
 **Descripción:**  
-Detalla cada componente o elemento dentro de una transacción o presupuesto, proporcionando una desagregación más específica.
+Detalla cada componente o elemento dentro de una transacción , proporcionando una desagregación más específica.
 
 **Atributos Clave:**
 - **id:** Identificador único del ítem.
@@ -200,7 +200,6 @@ Detalla cada componente o elemento dentro de una transacción o presupuesto, pro
 
 **Relaciones:**
 - **ManyToOne** con **Transaccion:** Cada ítem está asociado a una transacción específica.
-- **ManyToOne** con **Presupuesto:** Opcionalmente, un ítem puede estar asociado a un presupuesto.
 
 **Propósito:**  
 Proporcionar una descomposición detallada de las transacciones o presupuestos, facilitando un análisis más granular de los gastos e ingresos.
