@@ -41,4 +41,8 @@ public class Transaccion {
     @OneToMany(mappedBy = "transaccion", cascade = CascadeType.ALL)
     private List<Item> items;
 
+    // Metodo personalizado para obtener la descripción de la transacción
+    public String getDescripcion() {
+        return "Transacción de " + monto + " a " + destinatario + " en fecha " + fecha + " de tipo " + tipo;
+    }
 }
