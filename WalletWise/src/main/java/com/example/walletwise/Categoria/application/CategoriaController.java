@@ -21,7 +21,7 @@ public class CategoriaController {
 
     // 1. Crear una nueva Categoría
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     public ResponseEntity<CategoriaDTO> crearCategoria(@Valid @RequestBody CategoriaDTO categoriaDTO) {
         CategoriaDTO creado = categoriaService.crearCategoria(categoriaDTO);
         return new ResponseEntity<>(creado, HttpStatus.CREATED);
@@ -29,7 +29,7 @@ public class CategoriaController {
 
     // 2. Listar todas las Categorías
     @GetMapping
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<List<CategoriaDTO>> listarCategorias() {
         List<CategoriaDTO> categorias = categoriaService.obtenerTodasLasCategorias();
         return ResponseEntity.ok(categorias);
@@ -45,7 +45,7 @@ public class CategoriaController {
 
     // 4. Actualizar una Categoría existente
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<CategoriaDTO> actualizarCategoria(@PathVariable Long id, @Valid @RequestBody CategoriaDTO categoriaDTO) {
         CategoriaDTO actualizado = categoriaService.actualizarCategoria(id, categoriaDTO);
         return ResponseEntity.ok(actualizado);
