@@ -2,6 +2,8 @@ package com.example.walletwise.Cuenta.domain;
 
 import com.example.walletwise.Cuenta.dtos.CuentaDTO;
 import com.example.walletwise.Cuenta.infrastructure.CuentaRepository;
+import com.example.walletwise.Usuario.domain.Usuario;
+import com.example.walletwise.Usuario.infrastructure.UsuarioRepository;
 import com.example.walletwise.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +17,21 @@ public class CuentaService {
     @Autowired
     private CuentaRepository cuentaRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     public CuentaDTO crearCuenta(CuentaDTO cuentaDTO) {
         Cuenta cuenta = new Cuenta();
         cuenta.setNombre(cuentaDTO.getNombre());
         cuenta.setSaldo(cuentaDTO.getSaldo());
         cuenta.setTipoCuenta(cuentaDTO.getTipoCuenta());
         cuenta.setMoneda(cuentaDTO.getMoneda());
+
+        // Asignar el Usuario a la Cuenta
+        Usuario usuario = usuarioRepository.findById(cuentaDTO.getUsuarioId())
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con id: " + cuentaDTO.getUsuarioId()));
+        cuenta.setUsuario(usuario);
+
         cuentaRepository.save(cuenta);
         return mapToDTO(cuenta);
     }
@@ -66,6 +77,7 @@ public class CuentaService {
         cuentaDTO.setSaldo(cuenta.getSaldo());
         cuentaDTO.setTipoCuenta(cuenta.getTipoCuenta());
         cuentaDTO.setMoneda(cuenta.getMoneda());
+        cuentaDTO.setUsuarioId(cuenta.getUsuario().getId());  // Asignar el usuarioId
         return cuentaDTO;
     }
 }

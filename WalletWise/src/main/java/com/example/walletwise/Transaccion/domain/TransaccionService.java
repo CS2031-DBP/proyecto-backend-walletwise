@@ -52,13 +52,15 @@ public class TransaccionService {
         // Guardar la transacción
         transaccionRepository.save(transaccion);
 
+        // Obtener el correo electrónico del usuario asociado a la cuenta
+        String email = cuenta.getUsuario().getEmail();
+
         // Publicar el evento después de guardar la transacción
-        eventPublisher.publishEvent(new TransactionEvent(this, transaccion));
+        eventPublisher.publishEvent(new TransactionEvent(this, email, transaccion));
 
         return mapToDTO(transaccion);
     }
 
-    // Resto del código se mantiene igual
     public List<TransaccionDTO> obtenerTodasLasTransacciones() {
         List<Transaccion> transacciones = transaccionRepository.findAll();
         return transacciones.stream().map(this::mapToDTO).collect(Collectors.toList());
@@ -115,6 +117,14 @@ public class TransaccionService {
         transaccionDTO.setDestinatario(transaccion.getDestinatario());
         transaccionDTO.setFecha(transaccion.getFecha());
         transaccionDTO.setTipo(transaccion.getTipo());
+        // Asignar los IDs de cuenta y categoría
+        if (transaccion.getCuenta() != null) {
+            transaccionDTO.setCuentaId(transaccion.getCuenta().getId());
+        }
+        if (transaccion.getCategoria() != null) {
+            transaccionDTO.setCategoriaId(transaccion.getCategoria().getId());
+        }
+
         return transaccionDTO;
     }
 }

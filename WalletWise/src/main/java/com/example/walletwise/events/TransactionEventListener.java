@@ -1,5 +1,6 @@
 package com.example.walletwise.events;
 
+import com.example.walletwise.Transaccion.domain.Transaccion;
 import com.example.walletwise.email.EmailService;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TransactionEventListener {
-
+/*
     private final EmailService emailService;
 
     public TransactionEventListener(EmailService emailService) {
@@ -17,13 +18,16 @@ public class TransactionEventListener {
     @Async
     @EventListener
     public void handleTransactionEvent(TransactionEvent event) {
-        System.out.println("Transacción registrada: " + event.getTransaccion().getDescripcion());
+        Transaccion transaccion = event.getTransaccion();
+        String userEmail = transaccion.getCuenta().getUsuario().getEmail(); // Obtener el email del usuario asociado
 
-        // Enviar correo de notificación
+        System.out.println("Transacción registrada: " + transaccion.getDescripcion());
+
+        // Enviar correo de notificación al usuario correspondiente
         emailService.sendTransactionNotification(
-                "user@example.com",
+                userEmail,  // Correo dinámico del usuario
                 "Nueva Transacción",
-                "Se ha registrado una nueva transacción: " + event.getTransaccion().getDescripcion()
+                "Se ha registrado una nueva transacción: " + transaccion.getDescripcion()
         );
-    }
+    }*/
 }
