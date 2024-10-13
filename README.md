@@ -79,6 +79,13 @@ La solución es importante porque ofrece a los usuarios una plataforma integral 
 ### Descripción de Entidades:
 ## **Entidades del Proyecto**
 
+### Autenticación de Usuarios
+
+| Método | Endpoint         | Roles Autorizados  | Descripción                                  |
+|--------|------------------|--------------------|----------------------------------------------|
+| POST   | /auth/register    | Público            | Registra un nuevo usuario en el sistema.     |
+| POST   | /auth/login       | Público            | Inicia sesión y genera un token JWT.         |
+
 ### **1. Usuario**
 
 **Descripción:**  
@@ -103,7 +110,7 @@ Gestionar la autenticación y autorización, así como mantener la información 
 **ENDPOINTS:**
 | Método | Endpoint                       | Roles Permitidos         | Descripción                                         |
 |--------|--------------------------------|-----------------|-----------------------------------------------------|
-| POST   | /api/usuarios/crear            |          | Crea un nuevo usuario en el sistema.                |
+| POST   | /api/usuarios/crear            | PUBLICO         | Crea un nuevo usuario en el sistema.                |
 | POST   | /api/usuarios/admin/crear      | ADMIN           | Crea un nuevo usuario con rol de administrador.     |
 | GET    | /api/usuarios/{id}             | USER/ADMIN      | Obtiene los detalles de un usuario específico por ID.|
 | GET    | /api/usuarios/email/{email}     | USER/ADMIN      | Obtiene los detalles de un usuario por su email.    |
