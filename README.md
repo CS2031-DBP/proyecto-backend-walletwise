@@ -284,6 +284,17 @@ Detalla cada componente o elemento dentro de una transacción , proporcionando u
 **Propósito:**  
 Proporcionar una descomposición detallada de las transacciones o presupuestos, facilitando un análisis más granular de los gastos e ingresos.
 
+**ENDPOINTS**:
+
+| Método | Endpoint              | Roles Permitidos         | Descripción                                                           |
+|--------|-----------------------|----------------|-----------------------------------------------------------------------|
+| POST   | /api/items           | USER/ADMIN     | Crea un nuevo item en el sistema.                                    |
+| GET    | /api/items           | ADMIN          | Lista todos los items en el sistema.                                |
+| GET    | /api/items/{id}      | USER/ADMIN     | Obtiene los detalles de un item específico por ID.                 |
+| PUT    | /api/items/{id}      | USER/ADMIN     | Actualiza los detalles de un item existente por ID.                |
+| DELETE | /api/items/{id}      | ADMIN          | Elimina un item específico por ID.                                  |
+
+
 ---
 
 ### **8. Reporte**
