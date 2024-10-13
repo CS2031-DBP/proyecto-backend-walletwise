@@ -121,6 +121,15 @@ Clasifica los ingresos y gastos en diferentes tipos para facilitar la organizaci
 **Propósito:**  
 Organizar los diferentes tipos de ingresos y gastos para facilitar la gestión y el análisis financiero.
 
+**ENDPOINTS:**
+| Método | Endpoint                | Roles Permitidos        | Descripción                                         |
+|--------|-------------------------|-----------------|-----------------------------------------------------|
+| POST   | /api/categorias         | USER            | Crea una nueva categoría en el sistema.             |
+| GET    | /api/categorias         | ADMIN           | Lista todas las categorías disponibles.             |
+| GET    | /api/categorias/{id}    | USER/ADMIN      | Obtiene los detalles de una categoría específica por ID. |
+| PUT    | /api/categorias/{id}    | USER/ADMIN      | Actualiza una categoría existente por ID.           |
+| DELETE | /api/categorias/{id}    | ADMIN           | Elimina una categoría específica por ID.            |
+
 ---
 
 ### **3. Subcategoria**
