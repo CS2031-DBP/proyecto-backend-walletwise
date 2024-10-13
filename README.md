@@ -35,9 +35,13 @@ Nuestro sistema de gestión financiera "WalletWise" surge como una solución int
 El sistema permite a los usuarios crear y gestionar cuentas financieras, controlar sus presupuestos, categorizar sus ingresos y gastos, y recibir alertas personalizadas cuando se acercan a sus límites financieros. A diferencia de soluciones tradicionales, hemos optado por un enfoque en tiempo real, donde cada transacción realizada actualiza de inmediato el estado del presupuesto y genera notificaciones automáticas vía correo electrónico.
 
 ### Objetivos del Proyecto:
-
-[Detallar los objetivos.]
-
+- Desarrollar una aplicación que permita a los usuarios gestionar de manera eficiente sus finanzas personales.
+- Proporcionar funcionalidades para registrar, categorizar y monitorear transacciones financieras.
+- Implementar presupuestos con alertas para que los usuarios controlen mejor sus gastos y no excedan sus límites financieros.
+- Ofrecer una experiencia segura mediante autenticación JWT y roles diferenciados para usuarios y administradores.
+- Enviar notificaciones por correo para que los usuarios se mantengan informados sobre sus movimientos financieros.
+- Facilitar la categorización de transacciones para un análisis detallado de los ingresos y gastos.
+  
 ---
 
 ## Identificación del Problema o Necesidad
