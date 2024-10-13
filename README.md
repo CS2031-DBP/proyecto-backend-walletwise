@@ -57,7 +57,7 @@
 
 ## Modelo de Entidades
 ### Diagrama de Entidades:
-[Incluir un diagrama.]
+![image](https://github.com/user-attachments/assets/9959c941-b9bb-4f3c-afe1-3ba8817c4581)
 
 ### Descripción de Entidades:
 ## **Entidades del Proyecto**
