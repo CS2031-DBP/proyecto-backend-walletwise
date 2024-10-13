@@ -35,6 +35,7 @@ Nuestro sistema de gestión financiera "WalletWise" surge como una solución int
 El sistema permite a los usuarios crear y gestionar cuentas financieras, controlar sus presupuestos, categorizar sus ingresos y gastos, y recibir alertas personalizadas cuando se acercan a sus límites financieros. A diferencia de soluciones tradicionales, hemos optado por un enfoque en tiempo real, donde cada transacción realizada actualiza de inmediato el estado del presupuesto y genera notificaciones automáticas vía correo electrónico.
 
 ### Objetivos del Proyecto:
+
 [Detallar los objetivos.]
 
 ---
@@ -53,7 +54,11 @@ El sistema permite a los usuarios crear y gestionar cuentas financieras, control
 [Listar y describir las funcionalidades.]
 
 ### Tecnologías Utilizadas:
-[Mencionar tecnologías, lenguajes, API, herramientas.]
+- **Backend:** Java con Spring Boot para el desarrollo del backend, gestionando la lógica de negocio y las APIs REST.
+- **Base de Datos:** PostgresSQL para almacenar datos de usuarios, cuentas, transacciones y presupuestos.
+- **Autenticación JWT:** Para asegurar que solo los usuarios autenticados puedan acceder a las funcionalidades del sistema.
+- **Correos Electrónicos:** Gmail API para el envío de notificaciones por correo.
+- **Herramientas de Desarrollo:** Postman para pruebas de APIs, y Git para control de versiones.
 
 ---
 
