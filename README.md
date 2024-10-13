@@ -190,6 +190,17 @@ Representa una cuenta financiera del usuario, como cuentas bancarias, tarjetas d
 **Propósito:**  
 Gestionar y monitorear el estado financiero de diferentes cuentas del usuario.
 
+**ENDPOINTS:**
+| Método | Endpoint                           | Roles Permitidos         | Descripción                                                          |
+|--------|------------------------------------|----------------|----------------------------------------------------------------------|
+| POST   | /api/cuentas                       | USER/ADMIN     | Crea una nueva cuenta en el sistema.                                 |
+| GET    | /api/cuentas                       | ADMIN          | Lista todas las cuentas en el sistema.                              |
+| GET    | /api/cuentas/usuario/{usuarioId}  | USER/ADMIN     | Obtiene todas las cuentas asociadas a un usuario específico.        |
+| GET    | /api/cuentas/{id}                  | USER/ADMIN     | Obtiene los detalles de una cuenta específica por ID.               |
+| PUT    | /api/cuentas/{id}                  | USER/ADMIN     | Actualiza los detalles de una cuenta existente por ID.              |
+| DELETE | /api/cuentas/{id}                  | ADMIN          | Elimina una cuenta específica por ID.                               |
+
+
 ---
 
 ### **5. Transaccion**
