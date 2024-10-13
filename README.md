@@ -259,10 +259,16 @@ Ofrecer al usuario una visión consolidada y estructurada de su situación finan
 
 ## Medidas de Seguridad Implementadas
 ### Seguridad de Datos:
-[Explicar técnicas y mecanismos de seguridad.]
+La aplicación implementa varias técnicas y mecanismos de seguridad para proteger los datos de los usuarios. Uno de los principales métodos es el uso de **JSON Web Tokens (JWT)** para la autenticación y autorización. El proceso de autenticación se gestiona a través del **AuthController**, donde se registran y validan usuarios. Las contraseñas se almacenan de forma segura mediante el uso de **BCrypt**, un algoritmo de hashing que añade un factor de complejidad a las contraseñas almacenadas.
+
+Además, todas las solicitudes están sujetas a **filtros de seguridad** que verifican la validez de los tokens JWT y autenticar al usuario antes de permitir el acceso a recursos protegidos. Esto asegura que solo los usuarios autenticados puedan acceder a sus datos personales y realizar transacciones. La aplicación también registra cada intento de inicio de sesión y registro, lo que permite auditar y detectar cualquier actividad sospechosa.
+
 
 ### Prevención de Vulnerabilidades:
-[Medidas tomadas para prevenir vulnerabilidades.]
+Para prevenir vulnerabilidades, se han implementado varias medidas de seguridad:
+- **Validación de Entradas:** Se utilizan anotaciones de validación en los DTOs (`LoginReq` y `RegisterReq`) para garantizar que los datos recibidos cumplen con los requisitos necesarios, como que el email sea válido y que la contraseña tenga al menos seis caracteres. Esto ayuda a prevenir inyecciones de SQL y otros ataques basados en datos maliciosos.
+- **Configuración de Seguridad:** Se ha establecido una configuración de seguridad que deshabilita CSRF (Cross-Site Request Forgery) y utiliza una política de creación de sesiones sin estado (`STATELESS`), lo que significa que no se guardan sesiones de usuario en el servidor. Esto ayuda a mitigar ataques relacionados con sesiones.
+- **Filtrado de Autenticación:** El **JwtAuthenticationFilter** se asegura de que cada solicitud que requiere autenticación contenga un token válido. Si el token no es válido o ha expirado, se devuelve un error de autorización.
 
 ---
 
