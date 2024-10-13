@@ -51,10 +51,13 @@ El sistema permite a los usuarios crear y gestionar cuentas financieras, control
 
 ## Descripción de la Solución
 ### Funcionalidades Implementadas:
-- **Gestión de Cuentas:** Los usuarios pueden registrar y monitorear sus diferentes cuentas bancarias o financieras, actualizando los saldos y tipos de cuentas.
-- **Registro de Transacciones:** Los usuarios pueden registrar transacciones (ingresos y gastos) asociadas a cuentas y categorías específicas.
-- **Gestión de Presupuestos:** Se permite a los usuarios establecer presupuestos para categorías específicas y recibir alertas cuando sus gastos se aproximan o exceden los límites definidos.
-- **Notificaciones por Correo Electrónico:** El sistema envía automáticamente notificaciones detalladas por correo electrónico cuando se registran nuevas transacciones o cuando los presupuestos están a punto de ser excedidos.
+- **Gestión de Cuentas:** Los usuarios pueden crear y gestionar múltiples cuentas financieras (corriente, ahorro, inversión) y realizar un seguimiento de sus saldos.
+- **Registro y Categorización de Transacciones:** Cada transacción se puede asociar a una cuenta específica y a una categoría (como Alimentación, Transporte, etc.), lo que facilita la organización de los gastos y los ingresos.
+- **Asignación de Ítems en Transacciones:** Las transacciones permiten desglosar ítems, lo que ofrece un nivel de detalle más alto para el análisis financiero.
+- **Presupuestos Personalizados:** Los usuarios pueden definir presupuestos para cada categoría de gasto y recibir alertas cuando están cerca de superar su límite mensual.
+- **Notificaciones por Correo Electrónico:** Cada vez que se registra una transacción, el usuario recibe un correo con información detallada de su transacción y una actualización sobre su presupuesto.
+- **Autenticación Segura con JWT:** El sistema asegura las cuentas de usuario mediante autenticación con JWT, protegiendo la información personal y financiera.
+
 
 ### Tecnologías Utilizadas:
 - **Backend:** Java con Spring Boot para el desarrollo del backend, gestionando la lógica de negocio y las APIs REST.
