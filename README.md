@@ -254,6 +254,17 @@ Define un límite o meta financiera para un período específico, ayudando al us
 **Propósito:**  
 Ayudar al usuario a planificar y controlar sus gastos dentro de diferentes categorías y períodos de tiempo.
 
+**ENDPOINTS:**
+| Método | Endpoint                                   | Roles Permitidos      | Descripción                                                            |
+|--------|--------------------------------------------|----------------|------------------------------------------------------------------------|
+| POST   | /api/presupuestos                         | USER/ADMIN     | Crea un nuevo presupuesto en el sistema.                               |
+| GET    | /api/presupuestos                         | ADMIN          | Lista todos los presupuestos en el sistema.                          |
+| GET    | /api/presupuestos/usuario/{usuarioId}    | USER/ADMIN     | Obtiene todos los presupuestos asociados a un usuario específico.    |
+| GET    | /api/presupuestos/{id}                    | USER/ADMIN     | Obtiene los detalles de un presupuesto específico por ID.            |
+| PUT    | /api/presupuestos/{id}                    | USER/ADMIN     | Actualiza los detalles de un presupuesto existente por ID.           |
+| DELETE | /api/presupuestos/{id}                    | ADMIN          | Elimina un presupuesto específico por ID.                            |
+
+
 ---
 
 ### **7. Ítem**
