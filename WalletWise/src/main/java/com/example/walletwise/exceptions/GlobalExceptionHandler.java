@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -49,6 +50,11 @@ public class GlobalExceptionHandler {
     return createErrorMapResponse(ex.getMessage(), HttpStatus.UNAUTHORIZED);
   }
 
+  @ExceptionHandler(AuthorizationDeniedException.class)
+  public ResponseEntity<Map<String, String>> handleAuthorizationDeniedException(AuthorizationDeniedException ex) {
+    return createErrorMapResponse(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+  }
+
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
     Map<String, String> errors = new HashMap<>();
@@ -65,8 +71,12 @@ public class GlobalExceptionHandler {
   // Manejo de excepciones generales
   @ExceptionHandler(Exception.class)
   public ResponseEntity<Map<String, String>> handleGlobalException(Exception ex) {
+    ex.printStackTrace();
     return createErrorMapResponse("Ocurrió un error inesperado", HttpStatus.INTERNAL_SERVER_ERROR);
   }
+
+
+
 
   private ResponseEntity<ErrorResponse> createErrorResponse(HttpStatus status, String message) {
     ErrorResponse errorResponse = new ErrorResponse(status, message);
