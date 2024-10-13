@@ -4,6 +4,8 @@ import com.example.walletwise.Categoria.domain.Categoria;
 import com.example.walletwise.Categoria.infrastructure.CategoriaRepository;
 import com.example.walletwise.Cuenta.domain.Cuenta;
 import com.example.walletwise.Cuenta.infrastructure.CuentaRepository;
+import com.example.walletwise.Presupuesto.domain.Presupuesto;
+import com.example.walletwise.Presupuesto.infrastructure.PresupuestoRepository;
 import com.example.walletwise.Transaccion.dtos.TransaccionDTO;
 import com.example.walletwise.Transaccion.infrastructure.TransaccionRepository;
 import com.example.walletwise.Usuario.infrastructure.UsuarioRepository;
@@ -13,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;  // Importar el publisher de eventos
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +33,9 @@ public class TransaccionService {
     private CategoriaRepository categoriaRepository;
 
     @Autowired
+    private PresupuestoRepository presupuestoRepository;
+
+    @Autowired
     private ApplicationEventPublisher eventPublisher;  // Inyectar el publisher de eventos
 
     @Transactional
@@ -39,26 +46,38 @@ public class TransaccionService {
         transaccion.setFecha(transaccionDTO.getFecha());
         transaccion.setTipo(transaccionDTO.getTipo());
 
-        // Asignar Cuenta a la Transacción
         Cuenta cuenta = cuentaRepository.findById(transaccionDTO.getCuentaId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cuenta no encontrada con id: " + transaccionDTO.getCuentaId()));
         transaccion.setCuenta(cuenta);
 
-        // Asignar Categoria a la Transacción
         Categoria categoria = categoriaRepository.findById(transaccionDTO.getCategoriaId())
                 .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada con id: " + transaccionDTO.getCategoriaId()));
         transaccion.setCategoria(categoria);
 
-        // Guardar la transacción
         transaccionRepository.save(transaccion);
 
-        // Obtener el correo electrónico del usuario asociado a la cuenta
-        String email = cuenta.getUsuario().getEmail();
+        // Actualizar el presupuesto correspondiente
+        actualizarPresupuesto(cuenta.getUsuario().getId(), categoria.getId(), transaccion.getMonto(), transaccion.getTipo());
 
-        // Publicar el evento después de guardar la transacción
+        String email = cuenta.getUsuario().getEmail();
         eventPublisher.publishEvent(new TransactionEvent(this, email, transaccion));
 
         return mapToDTO(transaccion);
+    }
+
+    private void actualizarPresupuesto(Long usuarioId, Long categoriaId, BigDecimal monto, TipoTransaccion tipo) {
+        Presupuesto presupuesto = presupuestoRepository.findByUsuarioIdAndCategoriaId(usuarioId, categoriaId)
+                .stream().findFirst().orElse(null);
+
+        if (presupuesto != null) {
+            if (tipo == TipoTransaccion.GASTO) {
+                presupuesto.setGastoActual(presupuesto.getGastoActual().add(monto));
+            } else if (tipo == TipoTransaccion.INGRESO) {
+                // Si es un ingreso, podrías restar del gasto actual o manejarlo de otra manera según tu lógica de negocio
+                presupuesto.setGastoActual(presupuesto.getGastoActual().subtract(monto));
+            }
+            presupuestoRepository.save(presupuesto);
+        }
     }
 
     public List<TransaccionDTO> obtenerTodasLasTransacciones() {

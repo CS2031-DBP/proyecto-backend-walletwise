@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface PresupuestoRepository extends JpaRepository<Presupuesto, Long> {
     List<Presupuesto> findByUsuarioId(Long usuarioId);
-
+    List<Presupuesto> findByUsuarioIdAndCategoriaId(Long usuarioId, Long categoriaId);
 }
