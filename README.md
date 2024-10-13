@@ -361,14 +361,21 @@ Para prevenir vulnerabilidades, se han implementado varias medidas de seguridad:
 ---
 
 ## Conclusión
+El proyecto ha sido un viaje significativo que ha permitido el desarrollo de un sistema robusto para la gestión de cuentas, categorías, subcategorías, y transacciones. A lo largo del proceso, hemos enfrentado desafíos que nos han llevado a mejorar nuestras habilidades técnicas y de colaboración. Este sistema no solo satisface las necesidades iniciales, sino que también abre nuevas posibilidades para el futuro.
 ### Logros del Proyecto:
-[Resumir logros alcanzados.]
+- Desarrollo Completo de Funcionalidades: Se implementaron todas las funcionalidades clave, incluyendo la creación, obtención, actualización y eliminación (CRUD) de cuentas, categorías, subcategorías, y transacciones.
+- Implementación de Seguridad: Se incorporó la autenticación JWT para la seguridad de las APIs, garantizando que solo los usuarios autorizados pudieran acceder a ciertos endpoints.
 
 ### Aprendizajes Clave:
-[Reflexionar sobre aprendizajes.]
+- Trabajo en Equipo: La colaboración entre el grupo nos ha permitido aprender sobre diferentes enfoques, diferentes ideas y mejores prácticas en el desarrollo de esta aplicación.
+- Mejora Continua: La comunicación del equipo constante durante el desarrollo ha sido crucial para identificar áreas de mejora y realizar ajustes necesarios.
+- Gestión de Proyectos: Aprendimos a utilizar herramientas de gestión de proyectos como lo es Github, lo que ha sido fundamental para organizar las tareas y el progreso del proyecto.
+- Resolución de Problemas: Enfrentar desafíos técnicos y encontrar soluciones efectivas ha sido una parte integral del aprendizaje, fortaleciendo nuestras habilidades de trabajar bajo un deadline.
 
 ### Trabajo Futuro:
-[Proponer mejoras.]
+- Optimización del Rendimiento: Se podrían implementar técnicas de optimización para mejorar la eficiencia de las consultas a la base de datos y el rendimiento general del sistema.
+- Expansión de Funcionalidades: Evaluar la posibilidad de agregar nuevas funcionalidades, como la generación de informes detallados y análisis de datos, para proporcionar un mayor valor a los usuarios.
+- Interfaz de Usuario: Desarrollar una interfaz de usuario atractiva para mejorar la experiencia del usuario final.
 
 ---
 
