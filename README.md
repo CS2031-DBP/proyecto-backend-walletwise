@@ -328,7 +328,8 @@ Ofrecer al usuario una visión consolidada y estructurada de su situación finan
 
 ## Testing y Manejo de Errores
 ### Niveles de Testing Realizados:
-[Describir niveles de pruebas.]
+[Describir niveles de pruebas.] [Detallar los eventos utilizados, explicar la importancia de su implementación en su
+proyecto, así como exponer el porqué deben ser asincrónicos]
 
 ### Resultados:
 [Resumir resultados de pruebas.]
