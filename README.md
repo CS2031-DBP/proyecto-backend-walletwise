@@ -322,6 +322,11 @@ Copyright (c) 2024 Adrian Urbina , Alejandro Ruiz, Adriana Sevillano , Carla Qui
     THE SOFTWARE.
 
 ### Referencias:
-[Incluir referencias.]
+Documentación de tecnologías utilizadas:
 
+Spring Framework: 
+JWT (JSON Web Token): https://spring.io/projects/spring-framework
+JPA (Java Persistence API): 
+ModelMapper: 
+Spring Security: 
 ---
