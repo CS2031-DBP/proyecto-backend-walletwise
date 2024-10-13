@@ -51,7 +51,10 @@ El sistema permite a los usuarios crear y gestionar cuentas financieras, control
 
 ## Descripción de la Solución
 ### Funcionalidades Implementadas:
-[Listar y describir las funcionalidades.]
+- **Gestión de Cuentas:** Los usuarios pueden registrar y monitorear sus diferentes cuentas bancarias o financieras, actualizando los saldos y tipos de cuentas.
+- **Registro de Transacciones:** Los usuarios pueden registrar transacciones (ingresos y gastos) asociadas a cuentas y categorías específicas.
+- **Gestión de Presupuestos:** Se permite a los usuarios establecer presupuestos para categorías específicas y recibir alertas cuando sus gastos se aproximan o exceden los límites definidos.
+- **Notificaciones por Correo Electrónico:** El sistema envía automáticamente notificaciones detalladas por correo electrónico cuando se registran nuevas transacciones o cuando los presupuestos están a punto de ser excedidos.
 
 ### Tecnologías Utilizadas:
 - **Backend:** Java con Spring Boot para el desarrollo del backend, gestionando la lógica de negocio y las APIs REST.
