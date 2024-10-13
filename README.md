@@ -160,6 +160,15 @@ Proporciona una clasificación más detallada dentro de una categoría principal
 **Propósito:**  
 Ofrecer una granularidad mayor en la clasificación de ingresos y gastos, permitiendo un análisis financiero más detallado.
 
+**ENDPOINTS:**
+| Método | Endpoint                       | Roles Permitidos          | Descripción                                         |
+|--------|--------------------------------|-----------------|-----------------------------------------------------|
+| POST   | /api/subcategorias             | USER/ADMIN      | Crea una nueva subcategoría en el sistema.          |
+| GET    | /api/subcategorias             | ADMIN           | Obtiene todas las subcategorías del sistema.        |
+| GET    | /api/subcategorias/{id}        | USER/ADMIN      | Obtiene los detalles de una subcategoría específica por ID.|
+| PUT    | /api/subcategorias/{id}        | USER/ADMIN      | Actualiza los detalles de una subcategoría existente por ID.|
+| DELETE | /api/subcategorias/{id}        | ADMIN           | Elimina una subcategoría específica por ID.         |
+
 ---
 
 ### **4. Cuenta**
