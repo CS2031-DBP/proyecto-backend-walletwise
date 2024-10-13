@@ -46,10 +46,10 @@ El sistema permite a los usuarios crear y gestionar cuentas financieras, control
 
 ## Identificación del Problema o Necesidad
 ### Descripción del Problema:
-[Explicar en detalle el problema.]
+Muchos usuarios tienen dificultades para gestionar sus finanzas de manera eficiente, lo que puede llevar a un descontrol en sus gastos y, en algunos casos, a endeudamiento. No existe una herramienta personalizada que ofrezca un seguimiento preciso de los presupuestos asignados y las transacciones realizadas en tiempo real, dificultando el análisis de gastos e ingresos.
 
 ### Justificación:
-[Relevancia de la solución.]
+La solución es importante porque ofrece a los usuarios una plataforma integral de gestión financiera que, además de registrar sus transacciones, les permite establecer presupuestos y recibir alertas antes de alcanzar sus límites de gasto. Además, ofrece una categorización detallada de ingresos y gastos, lo que ayuda a los usuarios a tomar decisiones informadas sobre sus finanzas. Esta plataforma también facilita el monitoreo de cuentas bancarias y el manejo de presupuestos, mejorando la salud financiera del usuario.
 
 ---
 
