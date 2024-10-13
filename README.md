@@ -2,6 +2,7 @@
 
 ---
 ![text](https://github.com/user-attachments/assets/facb9dfb-3270-4438-b852-e38f2c2b66a0)
+![text (3)](https://github.com/user-attachments/assets/e7c2bb85-86dc-47f9-9811-ade6cf120054)
 # Proyecto: WalletWise 💳
 
 ## Curso: CS 2031 Desarrollo Basado en Plataforma
