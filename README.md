@@ -222,6 +222,17 @@ Registra cada movimiento financiero, ya sea un ingreso o un gasto.
 **Propósito:**  
 Registrar y categorizar cada movimiento financiero para llevar un seguimiento detallado de los ingresos y gastos del usuario.
 
+**ENDPOINTS:**
+| Método | Endpoint                                   | Roles Permitidos          | Descripción                                                            |
+|--------|--------------------------------------------|----------------|------------------------------------------------------------------------|
+| POST   | /api/transacciones                         | USER/ADMIN     | Crea una nueva transacción en el sistema.                               |
+| GET    | /api/transacciones                         | ADMIN          | Lista todas las transacciones en el sistema.                          |
+| GET    | /api/transacciones/usuario/{usuarioId}    | USER/ADMIN     | Obtiene todas las transacciones asociadas a un usuario específico.    |
+| GET    | /api/transacciones/{id}                    | USER/ADMIN     | Obtiene los detalles de una transacción específica por ID.            |
+| PUT    | /api/transacciones/{id}                    | USER/ADMIN     | Actualiza los detalles de una transacción existente por ID.           |
+| DELETE | /api/transacciones/{id}                    | ADMIN          | Elimina una transacción específica por ID.                            |
+
+
 ---
 
 ### **6. Presupuesto**
