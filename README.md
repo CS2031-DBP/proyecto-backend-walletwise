@@ -324,9 +324,10 @@ Copyright (c) 2024 Adrian Urbina , Alejandro Ruiz, Adriana Sevillano , Carla Qui
 ### Referencias:
 Documentación de tecnologías utilizadas:
 
-Spring Framework: 
-JWT (JSON Web Token): https://spring.io/projects/spring-framework
+Spring Framework: https://spring.io/projects/spring-framework
+JWT (JSON Web Token): 
 JPA (Java Persistence API): 
 ModelMapper: 
 Spring Security: 
+
 ---
