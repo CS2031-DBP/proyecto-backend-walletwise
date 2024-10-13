@@ -91,16 +91,20 @@ public class EmailListener {
                 .append("            <li><strong>Tipo:</strong> ").append(transaccion.getTipo()).append("</li>\n")
                 .append("        </ul>\n");
 
+        // Obtener saldo de la cuenta asociada a la transacción
+        BigDecimal saldoDisponible = transaccion.getCuenta().getSaldo().subtract(transaccion.getMonto());
+
+        sb.append("        <p><strong>Saldo disponible en la cuenta:</strong> ").append(saldoDisponible).append("</p>\n");
+
         if (presupuesto != null) {
+            BigDecimal saldoPresupuesto = presupuesto.getMontoTotal().subtract(presupuesto.getGastoActual());
             sb.append("        <p><strong>Presupuesto para la categoría:</strong> ").append(presupuesto.getCategoria().getNombre()).append("</p>\n")
                     .append("        <ul>\n")
                     .append("            <li><strong>Monto Total:</strong> ").append(presupuesto.getMontoTotal()).append("</li>\n")
                     .append("            <li><strong>Gasto Actual:</strong> ").append(presupuesto.getGastoActual()).append("</li>\n")
-                    .append("            <li><strong>Alerta:</strong> ").append(presupuesto.getAlerta()).append("</li>\n")
-                    .append("            <li><strong>Periodo:</strong> ").append(presupuesto.getPeriodo()).append("</li>\n")
+                    .append("            <li><strong>Saldo Disponible:</strong> ").append(saldoPresupuesto).append("</li>\n")
                     .append("        </ul>\n");
 
-            // Verificar si el gasto actual supera el monto total
             if (presupuesto.getGastoActual().compareTo(presupuesto.getMontoTotal()) > 0) {
                 sb.append("        <p class=\"alert\">¡Has superado tu presupuesto para esta categoría!</p>\n");
             } else if (presupuesto.getGastoActual().compareTo(presupuesto.getMontoTotal().multiply(new BigDecimal("0.8"))) > 0) {
@@ -115,5 +119,6 @@ public class EmailListener {
 
         return sb.toString();
     }
+
 }
 
