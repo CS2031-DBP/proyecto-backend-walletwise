@@ -87,6 +87,8 @@ La solución es importante porque ofrece a los usuarios una plataforma integral 
 | POST   | /auth/register    | Público            | Registra un nuevo usuario en el sistema.     |
 | POST   | /auth/login       | Público            | Inicia sesión y genera un token JWT.         |
 
+- Tanto al momento de hacer register y login botaran tokens JWT (Bearer Token), el token de login permitirá al usuario poder acceder a endpoints que el rol USER permita
+
 ### **1. Usuario**
 
 **Descripción:**  
