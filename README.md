@@ -355,7 +355,72 @@ Para prevenir vulnerabilidades, se han implementado varias medidas de seguridad:
 ---
 
 ## Eventos y Asincronía
-[Detallar eventos y asincronía implementados.]
+En WalletWise, los eventos y la asincronía son fundamentales para mejorar la eficiencia del sistema, particularmente en las tareas que no requieren una respuesta inmediata. El envío de correos electrónicos de notificación es un caso importante que aprovecha este enfoque, ya que permite procesar transacciones sin demoras mientras se envían notificaciones en segundo plano.
+
+### Implementación de Eventos Asíncronos
+#### Configuración de la Asincronía**
+
+El proyecto utiliza la anotación `@EnableAsync` en la clase `AsyncConfiguration` para habilitar el procesamiento de tareas asíncronas. Esto permite que ciertos métodos, como los que manejan eventos, se ejecuten en segundo plano sin bloquear el hilo principal.
+
+@Configuration
+@EnableAsync
+public class AsyncConfiguration {
+}
+
+#### Manejador de Eventos de Transacciones
+
+La clase `TransactionEventListener` se encarga de escuchar los eventos de transacción que se disparan cuando un usuario realiza una transacción en la plataforma. Este evento es capturado de manera asíncrona, lo que significa que la operación principal de la transacción (como actualizar saldos y presupuestos) no se ve afectada por el procesamiento del evento.
+
+@Component
+public class TransactionEventListener {
+
+    private final EmailService emailService;
+
+    public TransactionEventListener(EmailService emailService) {
+        this.emailService = emailService;
+    }
+
+    @Async
+    @EventListener
+    public void handleTransactionEvent(TransactionEvent event) {
+        Transaccion transaccion = event.getTransaccion();
+        String userEmail = transaccion.getCuenta().getUsuario().getEmail(); 
+
+        // Enviar correo de notificación al usuario
+        emailService.sendTransactionNotification(userEmail, transaccion);
+    }
+}
+
+
+#### Envío Asíncrono de Correos
+
+El servicio `EmailService` se utiliza para enviar correos electrónicos en respuesta a eventos como la creación de una nueva transacción. Este envío se realiza de manera asíncrona, utilizando la anotación `@Async` en el método que maneja el evento, lo que permite mejorar la experiencia del usuario al no bloquear la ejecución mientras se envía el correo.
+
+@Service
+public class EmailService {
+
+    @Autowired
+    private JavaMailSender mailSender;
+
+    public void sendHtmlMessage(String to, String subject, String htmlBody) {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, "utf-8");
+
+        try {
+            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setText(htmlBody, true);
+            mailSender.send(message);
+        } catch (MessagingException e) {
+            // Manejar la excepción de envío de correo
+        }
+    }
+}
+
+### Casos de Uso de Eventos y Asincronía
+
+**Registro de una Nueva Transacción:** Cada vez que un usuario realiza una nueva transacción, se dispara un evento que maneja el envío de un correo electrónico de notificación. Este correo contiene detalles sobre la transacción, como el monto, el destinatario, y el saldo restante en la cuenta, y se envía de manera asíncrona, permitiendo que la operación de la transacción sea rápida y fluida.
+**Actualización de Presupuesto:** Durante la creación de una transacción, si la misma afecta un presupuesto asociado a una categoría de gasto, se envía una alerta por correo. El correo advierte al usuario si está próximo a alcanzar o ha superado el presupuesto. Estos correos se envían de manera asíncrona para no afectar el rendimiento del sistema.
 
 ---
 
