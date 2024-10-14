@@ -35,6 +35,11 @@ public class AuthController {
         }
     }
 
+    @GetMapping{"/hello"}
+    public String saludar(){
+        return "hola DBP";
+    }
+    
     @PostMapping("/login")
     public ResponseEntity<JwtAuthResponse> login(@RequestBody LoginReq loginReq) {
         logger.info("Intento de login para el email: {}", loginReq.getEmail());
