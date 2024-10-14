@@ -488,6 +488,10 @@ Los issues ayudaron a estructurar las fases del proyecto, desde la implementaci�
 
 ### Uso de GitHub Actions:
 
+En el proyecto, hemos configurado los siguientes flujos de trabajo en GitHub Actions:
+Build and Test: Este flujo se ejecuta automáticamente cada vez que se realiza un push o se crea un pull request en la rama principal. Se encarga de compilar el proyecto y ejecutar los tests unitarios.
+Deploy: Automatiza el despliegue de la aplicación en el entorno de producción tras la aprobación de una pull request. Este flujo se activa cuando se hacen cambios en la rama main.
+Se crearon ramas , pull requests e issues resueltos.
 
 ---
 
