@@ -324,6 +324,14 @@ Genera informes financieros basados en las transacciones y otros datos relevante
 **Propósito:**  
 Ofrecer al usuario una visión consolidada y estructurada de su situación financiera, facilitando la toma de decisiones informadas.
 
+**ENDPOINTS:**
+
+| Método  | Endpoint              | Roles Permitidos | Descripción                                                                                     |
+|-------------|------------------------|------------------|-------------------------------------------------------------------------------------------------|
+| POST        | `/api/reportes`         | USER/ADMIN       | Crea un nuevo reporte con base en la información proporcionada en el cuerpo de la solicitud.     |
+| GET         | `/api/reportes`         | ADMIN            | Obtiene todos los reportes del sistema. Solo accesible para administradores.                     |
+| GET         | `/api/reportes/{id}`    | USER/ADMIN       | Obtiene un reporte específico por su ID. Disponible tanto para usuarios como administradores.    |
+| PUT         | `/api/reportes/{id}`    | USER/ADMIN       | Actualiza un reporte existente con la información proporcionada en el cuerpo de la solicitud.     |
 
 ---
 
