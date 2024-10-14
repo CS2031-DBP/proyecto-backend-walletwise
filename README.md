@@ -328,15 +328,45 @@ Ofrecer al usuario una visión consolidada y estructurada de su situación finan
 
 ## Testing y Manejo de Errores
 ### Niveles de Testing Realizados:
-[Describir niveles de pruebas.] [Detallar los eventos utilizados, explicar la importancia de su implementación en su
-proyecto, así como exponer el porqué deben ser asincrónicos]
+
+**Testing de Integración a Nivel de los Controladores:**
+Se realizaron pruebas de integración para validar los endpoints de la capa de aplicación, asegurando que las interacciones con los servicios funcionan correctamente a través de peticiones HTTP. Las pruebas incluyeron:
+
+| **Prueba**                        | **Descripción**                                                                                                                                                              |
+|-----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Creación de una Transacción**   | Se validó que al enviar una petición para crear una transacción, el servicio maneja correctamente la solicitud y devuelve un estado `201 Created`.                         |
+| **Listado de Transacciones**      | Se probaron los endpoints que permiten listar todas las transacciones y aquellas específicas por usuario, confirmando que el servicio retorna los datos esperados.          |
+| **Actualización de Transacción**  | Se evaluó el flujo de actualización de una transacción, verificando que los cambios se reflejan correctamente en la respuesta.                                              |
+| **Eliminación de Transacción**    | Se probó el endpoint de eliminación, asegurando que una transacción se elimine exitosamente cuando se proporciona un ID válido.                                              |
+**Testing a Nivel de la Capa de Persistencia:**
+Además de las pruebas en los controladores, se implementaron pruebas que validan la correcta interacción con la base de datos. Estas pruebas aseguran que las entidades se guardan, actualizan y eliminan adecuadamente en la base de datos, utilizando contenedores de TestContainers para simular un entorno de base de datos PostgreSQL.
 
 ### Resultados:
-[Resumir resultados de pruebas.]
+Los resultados de las pruebas realizadas muestran un desempeño positivo en la interacción con los endpoints de la aplicación. A continuación, se resumen los resultados obtenidos:
+
+| **Operación**                  | **Resultado**                                            | **Descripción**                                                                                                                                          |
+|--------------------------------|---------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Creación de Transacción        | `201 Created`                                          | La transacción se creó correctamente, confirmando que el servicio maneja adecuadamente los datos de entrada y devuelve la respuesta esperada.            |
+| Listado de Transacciones       | `200 OK`                                              | Se verificó que el listado de transacciones fue exitoso y que el número de transacciones retornadas coincide con los datos esperados.                     |
+| Actualización de Transacción    | `200 OK`                                              | Los datos de la transacción fueron actualizados correctamente y el servicio devolvió la transacción modificada con los valores esperados.                  |
+| Eliminación de Transacción     | `204 No Content`                                      | Las transacciones fueron eliminadas exitosamente al utilizar un ID válido, y la operación retornó el estado de no contenido, confirmando la eliminación. |
 
 ### Manejo de Errores:
-[Explicar excepciones globales.]
+El manejo de errores se realiza mediante la clase `GlobalExceptionHandler`, que utiliza la anotación `@RestControllerAdvice` para gestionar las excepciones globales lanzadas en los controladores. Esta clase proporciona respuestas personalizadas para diferentes tipos de errores, como se detalla a continuación:
 
+| **Excepción**                                  | **Código de Estado**   | **Descripción**                                                                                             |
+|------------------------------------------------|-------------------------|-------------------------------------------------------------------------------------------------------------|
+| `ResourceNotFoundException`                     | `404 NOT FOUND`         | Maneja la excepción cuando un recurso no se encuentra.                                                    |
+| `BadRequestException`                           | `400 BAD REQUEST`       | Maneja la excepción cuando hay una solicitud incorrecta.                                                   |
+| `InsufficientFundsException`                    | `400 BAD REQUEST`       | Maneja la excepción cuando no hay suficientes fondos para realizar una transacción.                         |
+| `UnauthorizedActionException`                   | `403 FORBIDDEN`         | Maneja la excepción cuando un usuario no tiene permisos para realizar la acción solicitada.                |
+| `UserAlreadyExistException`                     | `400 BAD REQUEST`       | Maneja la excepción cuando se intenta crear un usuario que ya existe.                                     |
+| `UsernameNotFoundException`                     | `404 NOT FOUND`         | Maneja la excepción cuando no se encuentra el nombre de usuario.                                          |
+| `UnauthorizeOperationException`                 | `401 UNAUTHORIZED`      | Maneja la excepción cuando se intenta realizar una operación no autorizada.                                 |
+| `AuthorizationDeniedException`                  | `401 UNAUTHORIZED`      | Maneja la excepción cuando el acceso a un recurso está denegado.                                          |
+| `MethodArgumentNotValidException`               | `400 BAD REQUEST`       | Maneja la excepción cuando hay errores de validación en los argumentos del método.                         |
+| `BadCredentialsException`                        | `400 BAD REQUEST`       | Maneja la excepción cuando el email o la contraseña son incorrectos.                                       |
+| `Exception` (excepción global)                  | `500 INTERNAL SERVER ERROR` | Maneja excepciones generales, devolviendo un mensaje de error inesperado.                                 |
 ---
 
 ## Medidas de Seguridad Implementadas
