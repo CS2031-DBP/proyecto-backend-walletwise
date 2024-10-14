@@ -476,10 +476,18 @@ public class EmailService {
 
 ## GitHub
 ### Uso de GitHub Projects:
-[Describir el uso de GitHub projects.]
+Durante el desarrollo de WalletWise, se utilizó la funcionalidad de GitHub Projects para gestionar y organizar las tareas del equipo. A través de los issues, se asignaron responsabilidades específicas, vinculando cada tarea a una funcionalidad clave del sistema.
+
+Los issues ayudaron a estructurar las fases del proyecto, desde la implementación de funcionalidades hasta la resolución de errores, asegurando que el progreso fuera visible para todos los colaboradores. El sistema de pull requests permitió que cada contribución fuera revisada y validada antes de integrarse a la rama principal, promoviendo un flujo de trabajo colaborativo y eficiente.
+
+#### Proceso:
+
+* Se crearon issues para cada una de las funcionalidades o correcciones necesarias.
+* Los pull requests se generaron a partir de las ramas relacionadas con los issues, facilitando la revisión y discusión del código.
+* Cada cambio fue discutido y aprobado antes de realizar el merge en la rama principal.
 
 ### Uso de GitHub Actions:
-[Explicar flujo de trabajo implementado.]
+
 
 ---
 
