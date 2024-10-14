@@ -41,6 +41,7 @@ El sistema permite a los usuarios crear y gestionar cuentas financieras, control
 - Ofrecer una experiencia segura mediante autenticación JWT y roles diferenciados para usuarios y administradores.
 - Enviar notificaciones por correo para que los usuarios se mantengan informados sobre sus movimientos financieros.
 - Facilitar la categorización de transacciones para un análisis detallado de los ingresos y gastos.
+- Hacer Reportes de las Transacciones hechas en rangos de fechas para un mejor manejo y seguimiento del dinero del usuario.
   
 ---
 
@@ -307,7 +308,7 @@ Proporcionar una descomposición detallada de las transacciones o presupuestos, 
 ### **8. Reporte**
 
 **Descripción:**  
-Genera informes financieros basados en las transacciones y otros datos relevantes del usuario.
+Genera informes financieros basados en las transacciones hechas en el rango de fechas propocionado .
 
 **Atributos Clave:**
 - **id:** Identificador único del reporte.
