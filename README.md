@@ -338,6 +338,7 @@ Se realizaron pruebas de integración para validar los endpoints de la capa de a
 | **Listado de Transacciones**      | Se probaron los endpoints que permiten listar todas las transacciones y aquellas específicas por usuario, confirmando que el servicio retorna los datos esperados.          |
 | **Actualización de Transacción**  | Se evaluó el flujo de actualización de una transacción, verificando que los cambios se reflejan correctamente en la respuesta.                                              |
 | **Eliminación de Transacción**    | Se probó el endpoint de eliminación, asegurando que una transacción se elimine exitosamente cuando se proporciona un ID válido.                                              |
+
 **Testing a Nivel de la Capa de Persistencia:**
 Además de las pruebas en los controladores, se implementaron pruebas que validan la correcta interacción con la base de datos. Estas pruebas aseguran que las entidades se guardan, actualizan y eliminan adecuadamente en la base de datos, utilizando contenedores de TestContainers para simular un entorno de base de datos PostgreSQL.
 
