@@ -307,7 +307,7 @@ Proporcionar una descomposición detallada de las transacciones o presupuestos, 
 ### **8. Reporte**
 
 **Descripción:**  
-Genera informes financieros basados en las transacciones, presupuestos y otros datos relevantes del usuario.
+Genera informes financieros basados en las transacciones y otros datos relevantes del usuario.
 
 **Atributos Clave:**
 - **id:** Identificador único del reporte.
