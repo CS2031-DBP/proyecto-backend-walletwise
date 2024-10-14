@@ -18,7 +18,7 @@ public class EmailListener {
     private EmailService emailService;
 
     @Autowired
-    private PresupuestoRepository presupuestoRepository; // Asegúrate de tener acceso al presupuesto
+    private PresupuestoRepository presupuestoRepository;
 
     @EventListener
     @Async
@@ -32,6 +32,7 @@ public class EmailListener {
                 transaccion.getCategoria().getId()
         ).stream().findFirst().orElse(null);
 
+        // Generar el cuerpo del correo electrónico
         String htmlBody = generateHtmlBody(transaccion, presupuesto);
         emailService.sendHtmlMessage(email, "Actualización de Presupuesto y Transacción", htmlBody);
     }
@@ -91,9 +92,8 @@ public class EmailListener {
                 .append("            <li><strong>Tipo:</strong> ").append(transaccion.getTipo()).append("</li>\n")
                 .append("        </ul>\n");
 
-        // Obtener saldo de la cuenta asociada a la transacción
-        BigDecimal saldoDisponible = transaccion.getCuenta().getSaldo().subtract(transaccion.getMonto());
-
+        // Obtener el saldo disponible actualizado de la cuenta
+        BigDecimal saldoDisponible = transaccion.getCuenta().getSaldo();
         sb.append("        <p><strong>Saldo disponible en la cuenta:</strong> ").append(saldoDisponible).append("</p>\n");
 
         if (presupuesto != null) {
@@ -107,9 +107,12 @@ public class EmailListener {
 
             if (presupuesto.getGastoActual().compareTo(presupuesto.getMontoTotal()) > 0) {
                 sb.append("        <p class=\"alert\">¡Has superado tu presupuesto para esta categoría!</p>\n");
+            } else if (presupuesto.getGastoActual().compareTo(presupuesto.getMontoTotal()) == 0) {
+                sb.append("        <p class=\"alert\">Has alcanzado exactamente tu presupuesto para esta categoría.</p>\n");
             } else if (presupuesto.getGastoActual().compareTo(presupuesto.getMontoTotal().multiply(new BigDecimal("0.8"))) > 0) {
                 sb.append("        <p class=\"alert\">Estás cerca de alcanzar tu presupuesto para esta categoría.</p>\n");
             }
+
         }
 
         sb.append("        <p>¡Mantén un buen manejo de tus finanzas!</p>\n")
@@ -119,6 +122,4 @@ public class EmailListener {
 
         return sb.toString();
     }
-
 }
-
