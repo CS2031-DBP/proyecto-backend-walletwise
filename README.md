@@ -74,7 +74,7 @@ La solución es importante porque ofrece a los usuarios una plataforma integral 
 
 ## Modelo de Entidades
 ### Diagrama de Entidades:
-![image](https://github.com/user-attachments/assets/9959c941-b9bb-4f3c-afe1-3ba8817c4581)
+![diagrama er](https://github.com/user-attachments/assets/7b137cf7-5fe1-4645-bc20-f3798aa7cb99)
 
 ### Descripción de Entidades:
 ## **Entidades del Proyecto**
