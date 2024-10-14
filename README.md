@@ -80,6 +80,8 @@ La solución es importante porque ofrece a los usuarios una plataforma integral 
 ### Descripción de Entidades:
 ## **Entidades del Proyecto**
 
+PostmanCollection: https://wallet-wise.postman.co/workspace/Wallet-Wise-Workspace~91c02ad8-ef5c-4d82-ab40-23ae72120645/collection/34101768-01dbc4a4-13b2-447d-a3bd-03a2c2a12c26?action=share&creator=34101768
+
 ### Autenticación de Usuarios
 
 | Método | Endpoint         | Roles Autorizados  | Descripción                                  |
