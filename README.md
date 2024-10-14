@@ -319,6 +319,7 @@ Genera informes financieros basados en las transacciones y otros datos relevante
 
 **Relaciones:**
 - **ManyToOne** con **Usuario:** Cada reporte pertenece a un usuario.
+- **OneToMany** con **Transacciones** 
 
 **Propósito:**  
 Ofrecer al usuario una visión consolidada y estructurada de su situación financiera, facilitando la toma de decisiones informadas.
