@@ -49,13 +49,5 @@ public class ReporteController {
         return ResponseEntity.ok(actualizado);
     }
 
-    // Eliminar un reporte (Solo ADMIN)
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> eliminarReporte(@PathVariable Long id) {
-        reporteService.eliminarReporte(id);
-        return ResponseEntity.noContent().build();
-    }
-
 }
 

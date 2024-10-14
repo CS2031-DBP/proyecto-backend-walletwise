@@ -1,10 +1,12 @@
 package com.example.walletwise.Reporte.domain;
 
+import com.example.walletwise.Transaccion.domain.Transaccion;
 import com.example.walletwise.Usuario.domain.Usuario;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -24,7 +26,7 @@ public class Reporte {
     @Enumerated(EnumType.STRING)
     private TipoReporte tipoReporte; // Enum aplicado
 
-    @Column(nullable = false)
+    @Column
     private String contenido;
 
     @Column(nullable = false)
@@ -35,5 +37,9 @@ public class Reporte {
 
     @Column(nullable = false)
     private String formato; // "PDF", "CSV", etc.
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reporte_id")
+    private List<Transaccion> transacciones;
 
 }
