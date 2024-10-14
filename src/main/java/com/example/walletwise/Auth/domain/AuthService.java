@@ -62,12 +62,12 @@ public class AuthService {
             throw new UserAlreadyExistException("El email ya está registrado");
         }
 
-        Usuario usuario = new Usuario();
-        usuario.setNombre(req.getFirstName() + " " + req.getLastName());
-        usuario.setEmail(req.getEmail());
-        usuario.setPassword(passwordEncoder.encode(req.getPassword()));
-        usuario.setFechaRegistro(LocalDateTime.now().toLocalDate());
-
+        //Usuario usuario = new Usuario();
+        //usuario.setNombre(req.getFirstName() + " " + req.getLastName());
+        //usuario.setEmail(req.getEmail());
+       // usuario.setPassword(passwordEncoder.encode(req.getPassword()));
+        //usuario.setFechaRegistro(LocalDateTime.now().toLocalDate());
+        Usuario usuario = modelMapper.map(req, Usuario.class);
         // Asigna el rol de "USER" por defecto
         usuario.setRole(Role.USER);
 
