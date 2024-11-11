@@ -53,6 +53,7 @@ public class AuthService {
         String token = jwtService.generateToken(usuario);
         JwtAuthResponse response = new JwtAuthResponse();
         response.setToken(token);
+        response.setRole(usuario.getRole());
         return response;
     }
 
@@ -76,6 +77,7 @@ public class AuthService {
         String token = jwtService.generateToken(usuario);
         JwtAuthResponse response = new JwtAuthResponse();
         response.setToken(token);
+        response.setRole(usuario.getRole());
         return response;
     }
 }

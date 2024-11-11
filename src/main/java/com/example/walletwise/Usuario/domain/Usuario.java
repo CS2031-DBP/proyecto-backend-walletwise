@@ -5,14 +5,17 @@ import com.example.walletwise.Presupuesto.domain.Presupuesto;
 import com.example.walletwise.Reporte.domain.Reporte;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
-@Data
 @Entity
-public class Usuario {
-
+@Data
+public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,13 +36,33 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<Cuenta> cuentas;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
+    }
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<Presupuesto> presupuestos;
+    @Override
+    public String getUsername() {
+        return email;
+    }
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<Reporte> reportes;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
