@@ -1,5 +1,6 @@
 package com.example.walletwise.Presupuesto.application;
 
+import com.example.walletwise.Presupuesto.dtos.CrearPresupuestoDTO;
 import com.example.walletwise.Presupuesto.dtos.PresupuestoDTO;
 import com.example.walletwise.Presupuesto.domain.PresupuestoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +20,15 @@ public class PresupuestoController {
 
     @PostMapping
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity<PresupuestoDTO> crearPresupuesto(@RequestBody PresupuestoDTO presupuestoDTO) {
+    public ResponseEntity<PresupuestoDTO> crearPresupuesto(@RequestBody CrearPresupuestoDTO presupuestoDTO) {
         return new ResponseEntity<>(presupuestoService.crearPresupuesto(presupuestoDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<PresupuestoDTO>> listarTodosLosPresupuestos() {
-        return ResponseEntity.ok(presupuestoService.obtenerTodosLosPresupuestos());
-    }
 
-    @GetMapping("/usuario/{usuarioId}")
+    @GetMapping("/mispresupuestos")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity<List<PresupuestoDTO>> obtenerPresupuestosPorUsuario(@PathVariable Long usuarioId) {
-        return ResponseEntity.ok(presupuestoService.obtenerPresupuestosPorUsuarioId(usuarioId));
+    public ResponseEntity<List<PresupuestoDTO>> obtenerMisPresupuestos() {
+        return ResponseEntity.ok(presupuestoService.obtenerPresupuestosUsuarioAutenticado());
     }
 
     @GetMapping("/{id}")
@@ -43,12 +39,14 @@ public class PresupuestoController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity<PresupuestoDTO> actualizarPresupuesto(@PathVariable Long id, @RequestBody PresupuestoDTO presupuestoDTO) {
+    public ResponseEntity<PresupuestoDTO> actualizarPresupuesto(
+            @PathVariable Long id,
+            @RequestBody CrearPresupuestoDTO presupuestoDTO) {
         return ResponseEntity.ok(presupuestoService.actualizarPresupuesto(id, presupuestoDTO));
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Void> eliminarPresupuesto(@PathVariable Long id) {
         presupuestoService.eliminarPresupuesto(id);
         return ResponseEntity.noContent().build();
