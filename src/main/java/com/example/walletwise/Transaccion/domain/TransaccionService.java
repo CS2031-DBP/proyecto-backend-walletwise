@@ -13,6 +13,8 @@ import com.example.walletwise.exceptions.ResourceNotFoundException;
 import com.example.walletwise.events.TransactionEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -147,6 +149,19 @@ public class TransaccionService {
         transaccionRepository.delete(transaccion);
     }
 
+
+    // Obtener todas las transacciones con paginación
+    public Page<TransaccionDTO> obtenerTodasLasTransacciones(Pageable pageable) {
+        Page<Transaccion> transacciones = transaccionRepository.findAll(pageable);
+        return transacciones.map(this::mapToDTO);
+    }
+
+    // Obtener transacciones por usuario con paginación
+    public Page<TransaccionDTO> obtenerTransaccionesPorUsuarioId(Long usuarioId, Pageable pageable) {
+        Page<Transaccion> transacciones = transaccionRepository.findByCuentaUsuarioId(usuarioId, pageable);
+        return transacciones.map(this::mapToDTO);
+    }
+
     private TransaccionDTO mapToDTO(Transaccion transaccion) {
         TransaccionDTO transaccionDTO = new TransaccionDTO();
         transaccionDTO.setId(transaccion.getId());
@@ -154,15 +169,12 @@ public class TransaccionService {
         transaccionDTO.setDestinatario(transaccion.getDestinatario());
         transaccionDTO.setFecha(transaccion.getFecha());
         transaccionDTO.setTipo(transaccion.getTipo());
-
-        // Asignar los IDs de cuenta y categoría
         if (transaccion.getCuenta() != null) {
             transaccionDTO.setCuentaId(transaccion.getCuenta().getId());
         }
         if (transaccion.getCategoria() != null) {
             transaccionDTO.setCategoriaId(transaccion.getCategoria().getId());
         }
-
         return transaccionDTO;
     }
 }

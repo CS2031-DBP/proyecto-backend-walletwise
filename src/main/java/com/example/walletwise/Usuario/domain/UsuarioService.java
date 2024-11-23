@@ -12,6 +12,8 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -105,5 +107,10 @@ public class UsuarioService {
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con ID: " + id));
 
         usuarioRepository.delete(usuario);
+    }
+    public Page<UsuarioResponseDTO> listarUsuarios(Pageable pageable) {
+        Page<Usuario> usuarios = usuarioRepository.findAll(pageable);
+
+        return usuarios.map(usuario -> modelMapper.map(usuario, UsuarioResponseDTO.class));
     }
 }

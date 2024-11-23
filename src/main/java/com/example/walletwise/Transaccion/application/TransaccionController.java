@@ -4,12 +4,17 @@ import com.example.walletwise.Transaccion.dtos.TransaccionDTO;
 import com.example.walletwise.Transaccion.domain.TransaccionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/transacciones")
@@ -24,19 +29,46 @@ public class TransaccionController {
         return new ResponseEntity<>(transaccionService.crearTransaccion(transaccionDTO), HttpStatus.CREATED);
     }
 
-    // Listar todas las Transacciones (Solo ADMIN)
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<TransaccionDTO>> listarTodasLasTransacciones() {
-        return ResponseEntity.ok(transaccionService.obtenerTodasLasTransacciones());
+    public ResponseEntity<Map<String, Object>> listarTodasLasTransacciones(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sort
+    ) {
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(sort));
+        Page<TransaccionDTO> transacciones = transaccionService.obtenerTodasLasTransacciones(pageable);
+
+        // Crear un mapa para estructurar la respuesta
+        Map<String, Object> response = new HashMap<>();
+        response.put("transacciones", transacciones.getContent()); // Lista de transacciones
+        response.put("currentPage", transacciones.getNumber());   // Página actual
+        response.put("totalItems", transacciones.getTotalElements()); // Total de elementos
+        response.put("totalPages", transacciones.getTotalPages()); // Total de páginas
+
+        return ResponseEntity.ok(response);
     }
 
-    // Obtener Transacciones por Usuario
     @GetMapping("/usuario/{usuarioId}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity<List<TransaccionDTO>> obtenerTransaccionesPorUsuario(@PathVariable Long usuarioId) {
-        return ResponseEntity.ok(transaccionService.obtenerTransaccionesPorUsuarioId(usuarioId));
+    public ResponseEntity<Map<String, Object>> obtenerTransaccionesPorUsuario(
+            @PathVariable Long usuarioId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "fecha") String sort
+    ) {
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(sort));
+        Page<TransaccionDTO> transacciones = transaccionService.obtenerTransaccionesPorUsuarioId(usuarioId, pageable);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("transacciones", transacciones.getContent());
+        response.put("currentPage", transacciones.getNumber());
+        response.put("totalItems", transacciones.getTotalElements());
+        response.put("totalPages", transacciones.getTotalPages());
+
+        return ResponseEntity.ok(response);
     }
+
 
     // Obtener una Transacción por ID
     @GetMapping("/{id}")
