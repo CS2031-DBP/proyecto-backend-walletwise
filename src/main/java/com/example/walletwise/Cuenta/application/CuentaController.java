@@ -1,5 +1,6 @@
 package com.example.walletwise.Cuenta.application;
 
+import com.example.walletwise.Cuenta.dtos.CrearCuentaDTO;
 import com.example.walletwise.Cuenta.dtos.CuentaDTO;
 import com.example.walletwise.Cuenta.domain.CuentaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,10 @@ public class CuentaController {
 
     @PostMapping
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity<CuentaDTO> crearCuenta(@RequestBody CuentaDTO cuentaDTO) {
-        return new ResponseEntity<>(cuentaService.crearCuenta(cuentaDTO), HttpStatus.CREATED);
+    public ResponseEntity<CuentaDTO> crearCuenta(@RequestBody CrearCuentaDTO crearCuentaDTO) {
+        return new ResponseEntity<>(cuentaService.crearCuenta(crearCuentaDTO), HttpStatus.CREATED);
     }
+
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
@@ -29,11 +31,12 @@ public class CuentaController {
         return ResponseEntity.ok(cuentaService.obtenerTodasLasCuentas());
     }
 
-    @GetMapping("/usuario/{usuarioId}")
+    @GetMapping("/miscuentas")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity<List<CuentaDTO>> obtenerCuentasPorUsuario(@PathVariable Long usuarioId) {
-        return ResponseEntity.ok(cuentaService.obtenerCuentasPorUsuarioId(usuarioId));
+    public ResponseEntity<List<CuentaDTO>> obtenerMisCuentas() {
+        return ResponseEntity.ok(cuentaService.obtenerCuentasUsuarioAutenticado());
     }
+
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")

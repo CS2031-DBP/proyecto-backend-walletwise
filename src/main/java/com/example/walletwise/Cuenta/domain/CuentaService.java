@@ -1,11 +1,13 @@
 package com.example.walletwise.Cuenta.domain;
 
+import com.example.walletwise.Cuenta.dtos.CrearCuentaDTO;
 import com.example.walletwise.Cuenta.dtos.CuentaDTO;
 import com.example.walletwise.Cuenta.infrastructure.CuentaRepository;
 import com.example.walletwise.Usuario.domain.Usuario;
 import com.example.walletwise.Usuario.infrastructure.UsuarioRepository;
 import com.example.walletwise.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,24 +22,29 @@ public class CuentaService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public CuentaDTO crearCuenta(CuentaDTO cuentaDTO) {
-        Cuenta cuenta = new Cuenta();
-        cuenta.setNombre(cuentaDTO.getNombre());
-        cuenta.setSaldo(cuentaDTO.getSaldo());
-        cuenta.setTipoCuenta(cuentaDTO.getTipoCuenta());
-        cuenta.setMoneda(cuentaDTO.getMoneda());
+    public CuentaDTO crearCuenta(CrearCuentaDTO crearCuentaDTO) {
+        // Obtener el usuario autenticado
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
 
-        // Asignar el Usuario a la Cuenta
-        Usuario usuario = usuarioRepository.findById(cuentaDTO.getUsuarioId())
-                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con id: " + cuentaDTO.getUsuarioId()));
+        Cuenta cuenta = new Cuenta();
+        cuenta.setNombre(crearCuentaDTO.getNombre());
+        cuenta.setSaldo(crearCuentaDTO.getSaldo());
+        cuenta.setTipoCuenta(crearCuentaDTO.getTipoCuenta());
+        cuenta.setMoneda(crearCuentaDTO.getMoneda());
         cuenta.setUsuario(usuario);
 
         cuentaRepository.save(cuenta);
         return mapToDTO(cuenta);
     }
 
-    public List<CuentaDTO> obtenerCuentasPorUsuarioId(Long usuarioId) {
-        List<Cuenta> cuentas = cuentaRepository.findAll();  // Aquí debes implementar una búsqueda por usuarioId
+    public List<CuentaDTO> obtenerCuentasUsuarioAutenticado() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+
+        List<Cuenta> cuentas = cuentaRepository.findByUsuarioId(usuario.getId());
         return cuentas.stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
