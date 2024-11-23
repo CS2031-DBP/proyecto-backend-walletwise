@@ -119,7 +119,7 @@ Gestionar la autenticación y autorización, así como mantener la información 
 | POST   | /api/usuarios/admin/crear      | ADMIN           | Crea un nuevo usuario con rol de administrador.     |
 | GET    | /api/usuarios/{id}             | USER/ADMIN      | Obtiene los detalles de un usuario específico por ID.|
 | GET    | /api/usuarios/email/{email}     | USER/ADMIN      | Obtiene los detalles de un usuario por su email.    |
-| GET    | /api/usuarios/listar           | ADMIN           | Lista todos los usuarios del sistema.               |
+| GET    | 	/api/usuarios/listar?page=0&size=5&sort=nombre         | ADMIN           | Lista todos los usuarios del sistema.               |
 | PUT    | /api/usuarios/actualizar/{id}   | ADMIN           | Actualiza los detalles de un usuario existente por ID.|
 | DELETE | /api/usuarios/eliminar/{id}     | ADMIN           | Elimina un usuario específico por ID.               |
 
