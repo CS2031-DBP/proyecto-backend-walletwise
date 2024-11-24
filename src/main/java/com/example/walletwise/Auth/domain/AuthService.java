@@ -53,6 +53,9 @@ public class AuthService {
         String token = jwtService.generateToken(usuario);
         JwtAuthResponse response = new JwtAuthResponse();
         response.setToken(token);
+        response.setId(usuario.getId());
+        response.setNombre(usuario.getNombre());
+        response.setEmail(usuario.getEmail());
         response.setRole(usuario.getRole());
         return response;
     }
@@ -64,12 +67,10 @@ public class AuthService {
         }
 
         Usuario usuario = new Usuario();
-        usuario.setNombre(req.getFirstName() + " " + req.getLastName());
+        usuario.setNombre(req.getNombre());  // Usar directamente el nombre
         usuario.setEmail(req.getEmail());
         usuario.setPassword(passwordEncoder.encode(req.getPassword()));
         usuario.setFechaRegistro(LocalDateTime.now().toLocalDate());
-
-        // Asigna el rol de "USER" por defecto
         usuario.setRole(Role.USER);
 
         usuarioRepository.save(usuario);
@@ -77,6 +78,9 @@ public class AuthService {
         String token = jwtService.generateToken(usuario);
         JwtAuthResponse response = new JwtAuthResponse();
         response.setToken(token);
+        response.setId(usuario.getId());
+        response.setNombre(usuario.getNombre());
+        response.setEmail(usuario.getEmail());
         response.setRole(usuario.getRole());
         return response;
     }
