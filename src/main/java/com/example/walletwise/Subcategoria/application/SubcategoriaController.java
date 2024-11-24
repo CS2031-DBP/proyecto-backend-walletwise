@@ -24,7 +24,7 @@ public class SubcategoriaController {
     }
     // Obtener todas las subcategorías
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<List<SubcategoriaDTO>> obtenerTodasSubcategorias() {
         List<SubcategoriaDTO> subcategorias = subcategoriaService.obtenerTodasSubcategorias();
         return new ResponseEntity<>(subcategorias, HttpStatus.OK);
@@ -48,7 +48,7 @@ public class SubcategoriaController {
 
     // Eliminar una subcategoría
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Void> eliminarSubcategoria(@PathVariable Long id) {
         subcategoriaService.eliminarSubcategoria(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
