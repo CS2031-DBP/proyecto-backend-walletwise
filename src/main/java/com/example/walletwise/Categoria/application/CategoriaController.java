@@ -29,7 +29,7 @@ public class CategoriaController {
 
     // 2. Listar todas las Categorías
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     public ResponseEntity<List<CategoriaDTO>> listarCategorias() {
         List<CategoriaDTO> categorias = categoriaService.obtenerTodasLasCategorias();
         return ResponseEntity.ok(categorias);
@@ -53,7 +53,7 @@ public class CategoriaController {
 
     // 5. Eliminar una Categoría
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Void> eliminarCategoria(@PathVariable Long id) {
         categoriaService.eliminarCategoria(id);
         return ResponseEntity.noContent().build();
