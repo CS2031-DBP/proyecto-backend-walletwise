@@ -51,7 +51,7 @@ public class CuentaController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Void> eliminarCuenta(@PathVariable Long id) {
         cuentaService.eliminarCuenta(id);
         return ResponseEntity.noContent().build();
