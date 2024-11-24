@@ -15,5 +15,7 @@ public class SubcategoriaDTO {
 
     private String descripcion;
 
+    private String categoriaNombre; // Nuevo campo para el nombre de la categoría
+
 }
 

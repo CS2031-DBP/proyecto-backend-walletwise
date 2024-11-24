@@ -74,6 +74,7 @@ public class SubcategoriaService {
         subcategoriaDTO.setNombre(subcategoria.getNombre());
         subcategoriaDTO.setDescripcion(subcategoria.getDescripcion()); // Asignar descripcion
         subcategoriaDTO.setCategoriaId(subcategoria.getCategoria().getId()); // Asignar categoriaId
+        subcategoriaDTO.setCategoriaNombre(subcategoria.getCategoria().getNombre()); // Asignar el nombre de la categoría
         return subcategoriaDTO;
     }
 }
