@@ -49,16 +49,15 @@ public class TransaccionController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/usuario/{usuarioId}")
+    @GetMapping("/mistransacciones")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity<Map<String, Object>> obtenerTransaccionesPorUsuario(
-            @PathVariable Long usuarioId,
+    public ResponseEntity<Map<String, Object>> obtenerMisTransacciones(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "fecha") String sort
     ) {
         PageRequest pageable = PageRequest.of(page, size, Sort.by(sort));
-        Page<TransaccionDTO> transacciones = transaccionService.obtenerTransaccionesPorUsuarioId(usuarioId, pageable);
+        Page<TransaccionDTO> transacciones = transaccionService.obtenerTransaccionesUsuarioAutenticado(pageable);
 
         Map<String, Object> response = new HashMap<>();
         response.put("transacciones", transacciones.getContent());

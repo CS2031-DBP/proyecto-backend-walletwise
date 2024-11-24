@@ -8,6 +8,7 @@ import com.example.walletwise.Presupuesto.domain.Presupuesto;
 import com.example.walletwise.Presupuesto.infrastructure.PresupuestoRepository;
 import com.example.walletwise.Transaccion.dtos.TransaccionDTO;
 import com.example.walletwise.Transaccion.infrastructure.TransaccionRepository;
+import com.example.walletwise.Usuario.domain.Usuario;
 import com.example.walletwise.Usuario.infrastructure.UsuarioRepository;
 import com.example.walletwise.exceptions.ResourceNotFoundException;
 import com.example.walletwise.events.TransactionEvent;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +38,9 @@ public class TransaccionService {
 
     @Autowired
     private PresupuestoRepository presupuestoRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
     private ApplicationEventPublisher eventPublisher;
@@ -81,6 +86,15 @@ public class TransaccionService {
         eventPublisher.publishEvent(new TransactionEvent(this, email, transaccion));
 
         return mapToDTO(transaccion);
+    }
+    public Page<TransaccionDTO> obtenerTransaccionesUsuarioAutenticado(Pageable pageable) {
+        // Obtener el usuario autenticado
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+
+        Page<Transaccion> transacciones = transaccionRepository.findByCuentaUsuarioId(usuario.getId(), pageable);
+        return transacciones.map(this::mapToDTO);
     }
 
     private void actualizarPresupuesto(Long usuarioId, Long categoriaId, BigDecimal monto, TipoTransaccion tipo) {

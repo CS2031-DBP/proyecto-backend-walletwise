@@ -4,6 +4,7 @@ import com.example.walletwise.Categoria.domain.Categoria;
 import com.example.walletwise.Categoria.infrastructure.CategoriaRepository;
 import com.example.walletwise.Cuenta.domain.Cuenta;
 import com.example.walletwise.Cuenta.infrastructure.CuentaRepository;
+import com.example.walletwise.Reporte.dtos.CrearReporteDTO;
 import com.example.walletwise.Reporte.dtos.ReporteDTO;
 import com.example.walletwise.Reporte.infrastructure.ReporteRepository;
 import com.example.walletwise.Transaccion.domain.Transaccion;
@@ -14,6 +15,7 @@ import com.example.walletwise.Usuario.domain.Usuario;
 import com.example.walletwise.Usuario.infrastructure.UsuarioRepository;
 import com.example.walletwise.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.AccessDeniedException;
@@ -23,10 +25,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class ReporteService {
-
     @Autowired
     private ReporteRepository reporteRepository;
-
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -34,13 +34,12 @@ public class ReporteService {
     @Autowired
     private TransaccionRepository transaccionRepository;
 
-    @Autowired
-    private CategoriaRepository categoriaRepository;
+    public ReporteDTO crearReporte(CrearReporteDTO reporteDTO) {
+        // Obtener el usuario autenticado
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
 
-    @Autowired
-    private CuentaRepository cuentaRepository;
-
-    public ReporteDTO crearReporte(ReporteDTO reporteDTO) {
         // Validar fechas
         if (reporteDTO.getFechaFin().isBefore(reporteDTO.getFechaInicio())) {
             throw new IllegalArgumentException("La fecha de fin no puede ser anterior a la fecha de inicio.");
@@ -52,14 +51,10 @@ public class ReporteService {
         reporte.setFechaInicio(reporteDTO.getFechaInicio());
         reporte.setFechaFin(reporteDTO.getFechaFin());
         reporte.setFormato(reporteDTO.getFormato());
-
-        // Asignar Usuario al Reporte
-        Usuario usuario = usuarioRepository.findById(reporteDTO.getUsuarioId())
-                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con id: " + reporteDTO.getUsuarioId()));
         reporte.setUsuario(usuario);
 
         // Obtener las transacciones del usuario para el período especificado
-        List<Transaccion> transacciones = transaccionRepository.findByCuentaIdAndFechaBetween(
+        List<Transaccion> transacciones = transaccionRepository.findByCuentaUsuarioIdAndFechaBetween(
                 usuario.getId(), reporte.getFechaInicio(), reporte.getFechaFin());
         reporte.setTransacciones(transacciones);
 
@@ -67,58 +62,68 @@ public class ReporteService {
         return mapToDTO(reporte);
     }
 
-    public List<ReporteDTO> obtenerTodosLosReportes() {
-        List<Reporte> reportes = reporteRepository.findAll();
+    public List<ReporteDTO> obtenerReportesUsuarioAutenticado() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+
+        List<Reporte> reportes = reporteRepository.findByUsuarioId(usuario.getId());
         return reportes.stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
     public ReporteDTO obtenerReportePorId(Long id) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+
         Reporte reporte = reporteRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Reporte no encontrado con id: " + id));
+
+        // Verificar que el reporte pertenece al usuario autenticado
+        if (!reporte.getUsuario().getId().equals(usuario.getId())) {
+            throw new RuntimeException("No tienes permiso para ver este reporte");
+        }
+
         return mapToDTO(reporte);
     }
 
+    public ReporteDTO actualizarReporte(Long id, CrearReporteDTO reporteDTO) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
 
-    public ReporteDTO actualizarReporte(Long id, ReporteDTO reporteDTO) {
         Reporte reporte = reporteRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Reporte no encontrado con id: " + id));
 
+        // Verificar que el reporte pertenece al usuario autenticado
+        if (!reporte.getUsuario().getId().equals(usuario.getId())) {
+            throw new RuntimeException("No tienes permiso para modificar este reporte");
+        }
+
         // Validar fechas si están siendo actualizadas
-        if (reporteDTO.getFechaInicio() != null && reporteDTO.getFechaFin() != null) {
-            if (reporteDTO.getFechaFin().isBefore(reporteDTO.getFechaInicio())) {
-                throw new IllegalArgumentException("La fecha de fin no puede ser anterior a la fecha de inicio.");
-            }
-            reporte.setFechaInicio(reporteDTO.getFechaInicio());
-            reporte.setFechaFin(reporteDTO.getFechaFin());
+        if (reporteDTO.getFechaFin().isBefore(reporteDTO.getFechaInicio())) {
+            throw new IllegalArgumentException("La fecha de fin no puede ser anterior a la fecha de inicio.");
         }
 
         reporte.setTipoReporte(reporteDTO.getTipoReporte());
+        reporte.setFechaInicio(reporteDTO.getFechaInicio());
+        reporte.setFechaFin(reporteDTO.getFechaFin());
         reporte.setFormato(reporteDTO.getFormato());
 
-        // Actualizar Usuario si es necesario
-        if (reporteDTO.getUsuarioId() != null) {
-            Usuario usuario = usuarioRepository.findById(reporteDTO.getUsuarioId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con id: " + reporteDTO.getUsuarioId()));
-            reporte.setUsuario(usuario);
-        }
-
-        // Actualizar las transacciones si se proporcionan
-        if (reporteDTO.getTransacciones() != null) {
-            List<Transaccion> transacciones = reporteDTO.getTransacciones().stream()
-                    .map(this::mapDTOToTransaccion)
-                    .collect(Collectors.toList());
-            reporte.setTransacciones(transacciones);
-        } else {
-            // Si no se proporcionan transacciones, obtener las transacciones actualizadas del usuario
-            List<Transaccion> transacciones = transaccionRepository.findByCuentaIdAndFechaBetween(
-                    reporte.getUsuario().getId(), reporte.getFechaInicio(), reporte.getFechaFin());
-            reporte.setTransacciones(transacciones);
-        }
+        // Actualizar las transacciones
+        List<Transaccion> transacciones = transaccionRepository.findByCuentaUsuarioIdAndFechaBetween(
+                usuario.getId(), reporte.getFechaInicio(), reporte.getFechaFin());
+        reporte.setTransacciones(transacciones);
 
         reporteRepository.save(reporte);
         return mapToDTO(reporte);
     }
-
+    public List<ReporteDTO> obtenerTodosLosReportes() {
+        List<Reporte> reportes = reporteRepository.findAll();
+        return reportes.stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
 
     private ReporteDTO mapToDTO(Reporte reporte) {
         ReporteDTO reporteDTO = new ReporteDTO();
@@ -138,7 +143,6 @@ public class ReporteService {
 
         return reporteDTO;
     }
-
     private TransaccionDTO mapTransaccionToDTO(Transaccion transaccion) {
         TransaccionDTO dto = new TransaccionDTO();
         dto.setId(transaccion.getId());
@@ -147,7 +151,6 @@ public class ReporteService {
         dto.setFecha(transaccion.getFecha());
         dto.setTipo(transaccion.getTipo());
 
-        // Mapear IDs de Cuenta y Categoría
         if (transaccion.getCuenta() != null) {
             dto.setCuentaId(transaccion.getCuenta().getId());
         }
@@ -158,24 +161,5 @@ public class ReporteService {
         return dto;
     }
 
-    private Transaccion mapDTOToTransaccion(TransaccionDTO dto) {
-        Transaccion transaccion = new Transaccion();
-        transaccion.setId(dto.getId());
-        transaccion.setMonto(dto.getMonto());
-        transaccion.setDestinatario(dto.getDestinatario());
-        transaccion.setFecha(dto.getFecha());
-        transaccion.setTipo(dto.getTipo());
-
-        // Obtener la cuenta y la categoría basándose en los IDs proporcionados
-        Cuenta cuenta = cuentaRepository.findById(dto.getCuentaId())
-                .orElseThrow(() -> new ResourceNotFoundException("Cuenta no encontrada con id: " + dto.getCuentaId()));
-        transaccion.setCuenta(cuenta);
-
-        Categoria categoria = categoriaRepository.findById(dto.getCategoriaId())
-                .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada con id: " + dto.getCategoriaId()));
-        transaccion.setCategoria(categoria);
-
-        return transaccion;
-    }
 }
 

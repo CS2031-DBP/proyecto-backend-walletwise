@@ -19,5 +19,11 @@ public interface TransaccionRepository extends JpaRepository<Transaccion, Long> 
     Page<Transaccion> findByCuentaUsuarioId(Long usuarioId, Pageable pageable);
 
     Page<Transaccion> findAll(Pageable pageable); // Paginación para todas las transacciones
+    List<Transaccion> findByCuentaUsuarioIdAndFechaBetween(
+            Long usuarioId,
+            LocalDate fechaInicio,
+            LocalDate fechaFin
+    );
+
 }
 

@@ -1,5 +1,6 @@
 package com.example.walletwise.Reporte.application;
 
+import com.example.walletwise.Reporte.dtos.CrearReporteDTO;
 import com.example.walletwise.Reporte.dtos.ReporteDTO;
 import com.example.walletwise.Reporte.domain.ReporteService;
 import jakarta.validation.Valid;
@@ -17,15 +18,20 @@ public class ReporteController {
     @Autowired
     private ReporteService reporteService;
 
-    // Crear una nueva Reporte
     @PostMapping
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<ReporteDTO> crearReporte(@Valid @RequestBody ReporteDTO reporteDTO) {
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public ResponseEntity<ReporteDTO> crearReporte(@Valid @RequestBody CrearReporteDTO reporteDTO) {
         ReporteDTO creado = reporteService.crearReporte(reporteDTO);
         return new ResponseEntity<>(creado, HttpStatus.CREATED);
     }
 
-    // Obtener todos los reportes (Solo ADMIN)
+    @GetMapping("/misreportes")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public ResponseEntity<List<ReporteDTO>> obtenerMisReportes() {
+        List<ReporteDTO> reportes = reporteService.obtenerReportesUsuarioAutenticado();
+        return ResponseEntity.ok(reportes);
+    }
+
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<ReporteDTO>> obtenerTodosLosReportes() {
@@ -33,21 +39,22 @@ public class ReporteController {
         return ResponseEntity.ok(reportes);
     }
 
-    // Obtener un reporte por ID
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<ReporteDTO> obtenerReportePorId(@PathVariable Long id) {
         ReporteDTO reporteDTO = reporteService.obtenerReportePorId(id);
         return ResponseEntity.ok(reporteDTO);
     }
 
-    // Actualizar un reporte existente
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<ReporteDTO> actualizarReporte(@PathVariable Long id, @Valid @RequestBody ReporteDTO reporteDTO) {
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public ResponseEntity<ReporteDTO> actualizarReporte(
+            @PathVariable Long id,
+            @Valid @RequestBody CrearReporteDTO reporteDTO) {
         ReporteDTO actualizado = reporteService.actualizarReporte(id, reporteDTO);
         return ResponseEntity.ok(actualizado);
     }
-
 }
+
+
 
