@@ -30,7 +30,7 @@ public class TransaccionController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Map<String, Object>> listarTodasLasTransacciones(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -85,7 +85,7 @@ public class TransaccionController {
 
     // Eliminar una Transacción (Solo ADMIN)
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Void> eliminarTransaccion(@PathVariable Long id) {
         transaccionService.eliminarTransaccion(id);
         return ResponseEntity.noContent().build();
