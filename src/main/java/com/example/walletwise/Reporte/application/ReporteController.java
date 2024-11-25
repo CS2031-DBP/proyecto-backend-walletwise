@@ -33,7 +33,7 @@ public class ReporteController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<List<ReporteDTO>> obtenerTodosLosReportes() {
         List<ReporteDTO> reportes = reporteService.obtenerTodosLosReportes();
         return ResponseEntity.ok(reportes);
