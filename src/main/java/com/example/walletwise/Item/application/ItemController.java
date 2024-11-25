@@ -24,7 +24,7 @@ public class ItemController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<List<ItemDTO>> listarTodosLosItems() {
         return ResponseEntity.ok(itemService.obtenerTodosLosItems());
     }
@@ -42,7 +42,7 @@ public class ItemController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Void> eliminarItem(@PathVariable Long id) {
         itemService.eliminarItem(id);
         return ResponseEntity.noContent().build();
