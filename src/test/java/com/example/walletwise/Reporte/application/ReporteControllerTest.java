@@ -63,7 +63,6 @@ public class ReporteControllerTest {
         reporteDTO.setUsuarioId(1L);
         reporteDTO.setFechaGeneracion(LocalDate.now());
         reporteDTO.setTipoReporte(TipoReporte.INGRESOS);
-        reporteDTO.setContenido("Resumen financiero XYZ");
 
         LocalDate inicio = LocalDate.parse("2024-05-12");
         LocalDate fin = LocalDate.parse("2024-10-12");
@@ -76,7 +75,6 @@ public class ReporteControllerTest {
         reporteDTOUpdate.setUsuarioId(1L);
         reporteDTOUpdate.setFechaGeneracion(LocalDate.now());
         reporteDTOUpdate.setTipoReporte(TipoReporte.INGRESOS);
-        reporteDTOUpdate.setContenido("Resumen financiero XYZ");
 
         reporteDTOUpdate.setFechaInicio(inicio);
         reporteDTOUpdate.setFechaFin(fin);
@@ -167,7 +165,6 @@ public class ReporteControllerTest {
         System.out.println("testEliminarReporte");
 
         Long id = 1L;
-        doNothing().when(reporteService).eliminarReporte(ArgumentMatchers.any());
 
         ResultActions response = this.mockMvc.perform(delete("/api/reportes/".concat(id.toString()))
                 .contentType(MediaType.APPLICATION_JSON));

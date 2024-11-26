@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class RegisterReq {
     @NotBlank(message = "El nombre es obligatorio")
-    private String nombre;  // Cambiar firstName y lastName por un único campo nombre
+    private String nombre;  // Cambiar firstName y lastName por un único camponombre
 
     @NotBlank(message = "El email es obligatorio")
     @Email(message = "El email debe ser válido")

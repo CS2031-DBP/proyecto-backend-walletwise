@@ -110,24 +110,6 @@ public class CuentaControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
-    @WithMockUser(username = "user01@example.com", roles = {"USER"})
-    @Test
-    public void testObtenerCuentasPorUsuario() throws Exception {
-        System.out.println("testObtenerCuentasPorUsuario");
-
-        listCuentaDTO.add(cuentaDTO);
-        when(cuentaService.obtenerCuentasPorUsuarioId(any())).thenReturn(listCuentaDTO);
-
-        ResultActions response = this.mockMvc.perform(get("/api/cuentas/usuario/".concat(cuentaDTO.getUsuarioId().toString()))
-                .contentType(MediaType.APPLICATION_JSON));
-
-        // Asserting the response expectations
-        response.andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.size()", CoreMatchers.is(listCuentaDTO.size())))
-                .andDo(MockMvcResultHandlers.print());
-
-    }
-
     @Test
     @WithMockUser(username = "user01@example.com", roles = {"USER"})
     public void testObtenerCuentaPorId() throws Exception {

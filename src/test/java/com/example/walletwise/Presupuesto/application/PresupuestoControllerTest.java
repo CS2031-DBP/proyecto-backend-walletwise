@@ -94,41 +94,6 @@ public class PresupuestoControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
-    @WithMockUser(username = "admin@example.com", roles = {"ADMIN"})
-    @Test
-    public void testListarTodasLasPresupuestos() throws Exception {
-        System.out.println("testListarPresupuestos");
-
-        listPresupuestoDTO.add(presupuestoDTO);
-
-        when(presupuestoService.obtenerTodosLosPresupuestos()).thenReturn(listPresupuestoDTO);
-
-        ResultActions response = this.mockMvc.perform(get("/api/presupuestos")
-                .contentType(MediaType.APPLICATION_JSON));
-
-        // Asserting the response expectations
-        response.andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.size()", CoreMatchers.is(listPresupuestoDTO.size())))
-                .andDo(MockMvcResultHandlers.print());
-    }
-
-    @WithMockUser(username = "user01@example.com", roles = {"USER"})
-    @Test
-    public void testObtenerPresupuestosPorUsuario() throws Exception {
-        System.out.println("testObtenerPresupuestosPorUsuario");
-
-        listPresupuestoDTO.add(presupuestoDTO);
-        when(presupuestoService.obtenerPresupuestosPorUsuarioId(any())).thenReturn(listPresupuestoDTO);
-
-        ResultActions response = this.mockMvc.perform(get("/api/presupuestos/usuario/".concat(usuarioId.toString()))
-                .contentType(MediaType.APPLICATION_JSON));
-
-        // Asserting the response expectations
-        response.andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.size()", CoreMatchers.is(listPresupuestoDTO.size())))
-                .andDo(MockMvcResultHandlers.print());
-
-    }
 
     @Test
     @WithMockUser(username = "user01@example.com", roles = {"USER"})

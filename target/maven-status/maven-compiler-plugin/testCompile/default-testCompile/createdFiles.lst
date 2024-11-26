@@ -1,0 +1,9 @@
+com/example/walletwise/Cuenta/application/CuentaControllerTest.class
+com/example/walletwise/AbstractContainerBaseTest.class
+com/example/walletwise/WalletWiseApplicationTests.class
+com/example/walletwise/Usuario/application/UsuarioControllerTest.class
+com/example/walletwise/Categoria/application/CategoriaControllerTest.class
+com/example/walletwise/Categoria/infrastructure/CategoriaRepositoryTest.class
+com/example/walletwise/Transaccion/application/TransaccionControllerTest.class
+com/example/walletwise/Presupuesto/application/PresupuestoControllerTest.class
+com/example/walletwise/Reporte/application/ReporteControllerTest.class

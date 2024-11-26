@@ -1,0 +1,9 @@
+/Users/alejandroruiz/Desktop/DBP/PROYECTOFINAL/BACKEND/proyecto-backend-walletwise/src/test/java/com/example/walletwise/AbstractContainerBaseTest.java
+/Users/alejandroruiz/Desktop/DBP/PROYECTOFINAL/BACKEND/proyecto-backend-walletwise/src/test/java/com/example/walletwise/Categoria/application/CategoriaControllerTest.java
+/Users/alejandroruiz/Desktop/DBP/PROYECTOFINAL/BACKEND/proyecto-backend-walletwise/src/test/java/com/example/walletwise/Categoria/infrastructure/CategoriaRepositoryTest.java
+/Users/alejandroruiz/Desktop/DBP/PROYECTOFINAL/BACKEND/proyecto-backend-walletwise/src/test/java/com/example/walletwise/Cuenta/application/CuentaControllerTest.java
+/Users/alejandroruiz/Desktop/DBP/PROYECTOFINAL/BACKEND/proyecto-backend-walletwise/src/test/java/com/example/walletwise/Presupuesto/application/PresupuestoControllerTest.java
+/Users/alejandroruiz/Desktop/DBP/PROYECTOFINAL/BACKEND/proyecto-backend-walletwise/src/test/java/com/example/walletwise/Reporte/application/ReporteControllerTest.java
+/Users/alejandroruiz/Desktop/DBP/PROYECTOFINAL/BACKEND/proyecto-backend-walletwise/src/test/java/com/example/walletwise/Transaccion/application/TransaccionControllerTest.java
+/Users/alejandroruiz/Desktop/DBP/PROYECTOFINAL/BACKEND/proyecto-backend-walletwise/src/test/java/com/example/walletwise/Usuario/application/UsuarioControllerTest.java
+/Users/alejandroruiz/Desktop/DBP/PROYECTOFINAL/BACKEND/proyecto-backend-walletwise/src/test/java/com/example/walletwise/WalletWiseApplicationTests.java

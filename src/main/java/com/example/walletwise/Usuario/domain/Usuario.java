@@ -1,8 +1,5 @@
 package com.example.walletwise.Usuario.domain;
 
-import com.example.walletwise.Cuenta.domain.Cuenta;
-import com.example.walletwise.Presupuesto.domain.Presupuesto;
-import com.example.walletwise.Reporte.domain.Reporte;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -44,21 +41,6 @@ public class Usuario implements UserDetails {
     @Override
     public String getUsername() {
         return email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
     }
 
     @Override
